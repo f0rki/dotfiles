@@ -1,0 +1,93 @@
+[include]
+    path = ~/.gitconfig.local
+
+[color]
+    ui = true
+
+[merge]
+    tool = meld
+
+# always fsck everything, otherwise we might get corrupted shit
+[transfer]
+    fsckobjects = true
+[fetch]
+	fsckobjects = true
+[receive]
+    fsckObjects = true
+
+[pretty]
+    pretty1     = %C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)
+    prettyshort = %C(bold blue)%h  %C(bold green)%d%Creset %s%C(dim white) [%cn]
+    prettylong  = %n=========================================================%n%C(bold blue)%h  %C(bold green)%d%Creset %s%C(dim white) [%cn]
+    prettybody = %n=========================================================%n%C(bold blue)%h  %C(bold green)%d%Creset %s%C(dim white) [%cn] %n %b
+
+[alias]
+    flame = blame
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+
+    pr = pull --rebase    
+    fo = fetch origin
+    st = status -sb
+    c = commit
+    ca = commit --amend
+    br = branch
+    co = checkout
+    df = diff
+    dc = diff --cached
+    lg = log -p
+
+    rbi = rebase --interactive
+    rbc = rebase --continue
+
+    # Show all branches
+    bv  = branch -v 
+
+    # Show all merged branches
+    bvm = branch -v --merged
+
+    # DailyReView -- what happened before? (commit title, message + affected files)
+    drv = log --since='1 day ago' --pretty=prettybody --numstat -n 15 
+
+    # Review in tree form (last 25)
+    rv  = log --graph --abbrev-commit --decorate --pretty=pretty1 --all -n 25
+
+    # Review in tree from (all)
+    rvl = log --graph --abbrev-commit --decorate --pretty=pretty1 --all
+
+    # Review merges (tree form)
+    rvm = log --graph --abbrev-commit --decorate --pretty=pretty1 --all --merges -n 25
+
+    # Short commit listing (last 25)
+    ls  = log --pretty=prettyshort -n 25
+
+    # Commit listing (all)
+    la  = log --pretty=prettyshort --all
+
+    # Long commit listing -- with stats of changed files
+    ll  = log --pretty=prettylong --decorate --numstat
+
+    # Last commit info
+    lc  = log --numstat -1
+
+    # Diff Last commit
+    dlc = diff --cached HEAD^
+
+    # Diff 'commit~1' with 'commit' (short info)
+    dcs = "!f() { git diff --numstat "$1"^.."$1"; }; f" 
+
+    #Shortlog, number of commits per author
+    sl  = shortlog -sn 
+
+    #Bring up webbrowser with repo view (needs nginx or similar)
+    web = instaweb 
+
+    #search commit messages
+    cs  = log --grep 
+
+    #search commit messages short
+    css = log --abbrev-commit --pretty=pretty1 --grep 
+
+    #File log
+    flog = log -- 
+
+    permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
