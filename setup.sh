@@ -1,8 +1,7 @@
 #!/bin/bash
 
-ln -s "$(pwd)/tmux.conf" "~/.tmux.conf"
-ln -s "$(pwd)/gitconfig" "~/.gitconfig"
+ln -s "$(pwd)/tmux.conf" ~
+ln -s "$PWD/gitconfig" ~
 
 git clone https://github.com/f0rki/dotvim vim
-ln -s "$(pwd)/vim" "~/.vim"
-ln -s "$(pwd)/vim" "~/.config/nvim"
+ln -s "$(pwd)/vim" ~
