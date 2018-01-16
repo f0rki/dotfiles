@@ -1,7 +1,15 @@
 #!/bin/bash
 
-ln -s "$(pwd)/tmux.conf" ~
-ln -s "$PWD/gitconfig" ~
+set -ex
+
+if [[ ! -L ~/.tmux.conf ]]; then
+    ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
+fi
+if [[ ! -L ~/.gitconfig ]]; then
+    ln -s "$PWD/gitconfig" ~/.gitconfig
+fi
 
 git clone https://github.com/f0rki/dotvim vim
-ln -s "$(pwd)/vim" ~
+if [[ ! -L ~/.vim ]]; then
+    ln -s "$(pwd)/vim" ~/.vim
+fi
