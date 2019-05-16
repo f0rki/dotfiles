@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/bash -ex
 
-set -ex
+git pull || true
 
 if [[ ! -L ~/.tmux.conf ]]; then
     ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
@@ -17,4 +17,8 @@ else
 fi
 if [[ ! -L ~/.vim ]]; then
     ln -s "$(pwd)/vim" ~/.vim
+fi
+if [[ ! -L ~/.config/nvim ]]; then
+    mkdir -p ~/.config
+    ln -s "$(pwd)/vim" ~/.config/nvim
 fi
