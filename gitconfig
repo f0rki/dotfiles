@@ -15,6 +15,17 @@
 [receive]
     fsckObjects = true
 
+# allows to clone some broken repos like the python-requests git repo
+# https://github.com/psf/requests/issues/2690
+# timezone doesn't sound critical to me... so just warn?
+[receive "fsck"]
+	badTimezone = warn
+[fetch "fsck"]
+	badTimezone = warn
+[transfer "fsck"]
+    badTimezone = warn
+
+
 [pretty]
     pretty1     = %C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)
     prettyshort = %C(bold blue)%h  %C(bold green)%d%Creset %s%C(dim white) [%cn]
