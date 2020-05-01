@@ -1,0 +1,353 @@
+###############################################
+# Meta-Configuration
+###############################################
+
+set $modkey Mod4
+set $mod Mod4
+set $altkey Mod1
+set $raltkey Mod5
+
+set $term alacritty
+set $browser env MOZ_ENABLE_WAYLAND=1 firefox
+set $alt_browser "google-chrome || chromium"
+#set $mailer thunderbird
+set $mailer evolution
+#set $filemanager thunar
+set $filemanager nemo
+set $shutdown_cmd "systemctl poweroff"
+set $suspend_cmd "swaylock -f -c 000000 && sleep 1 && sudo systemctl suspend"
+
+    #-modi combi,run,window,ssh -combi-mode run,window,ssh \
+#set $launcher /home/f0rki/.local/rofi/bin/rofi -modi combi,run,ssh -combi-mode run,ssh -show combi -sidebar-mode -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+set $launcher /home/f0rki/.local/rofi/bin/rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+
+# wofi support this?
+#set $launcher wofi --show run,drun --term $term 
+
+# Input 
+input type:keyboard {
+    xkb_layout us,de
+    #xkb_variant ,nodeadkeys
+    xkb_options grp:alt_shift_toggle
+}
+
+
+###############################################
+# style
+###############################################
+
+default_border pixel 1
+default_floating_border normal 1
+#titlebar_border_thickness 21
+
+hide_edge_borders smart_no_gaps
+smart_borders on
+
+###############################################
+# Wallpaper (other output settings handled by kanshi)
+###############################################
+
+# background modes: "stretch", "fill", "fit", "center", "tile"
+
+output "Samsung Electric Company C34H89x H4ZN101108" {
+    background ~/Pictures/Wallpapers/thg6v3xlvg4z.png stretch
+}
+
+output "Chimei Innolux Corporation 0x14C9 0x00000000" {
+    background ~/Pictures/Wallpapers/crn7iov2l3u41.jpg stretch
+}
+
+output "Iiyama North America PL2783Q 1151265101777" {
+    background ~/Pictures/Wallpapers/sXUava9.jpg stretch
+}
+
+###############################################
+# Program Keybindings
+###############################################
+
+bindsym $altkey+F1 exec $term
+bindsym $altkey+F2 exec $browser
+bindsym $altkey+F3 exec $mailer
+bindsym $altkey+F4 exec $alt_browser
+
+bindsym ctrl+1 exec $filemanager
+
+bindsym $altkey+e exec $launcher
+
+
+bindsym ctrl+$altkey+l exec swaylock -f -c 000000
+bindsym ctrl+$altkey+s exec $suspend_cmd
+bindsym ctrl+$altkey+p exec $shutdown_cmd
+
+
+###############################################
+# Workspace configuration
+###############################################
+
+# TODO: need more workspace config?
+
+workspace_auto_back_and_forth yes
+
+###############################################
+# Mouse-related
+###############################################
+
+# move floating windows with modkey and mouse
+floating_modifier $modkey
+# keep focus within current container 
+focus_wrapping workspace
+# disable auto focus
+focus_follows_mouse yes
+# mouse follows outputs
+mouse_warping output
+
+###############################################
+# Keybindings
+###############################################
+
+# Reload the configuration file
+bindsym $modkey+Shift+c reload
+# Exit sway (logs you out of your Wayland session)
+bindsym $modkey+Shift+e exec swaynag -t warning -m 'End your Wayland session?' -b 'Yes, exit sway' 'swaymsg exit'
+
+
+# window stuff
+# close it
+bindsym $altkey+q kill
+
+bindsym $modkey+Shift+F fullscreen toggle
+bindsym $modkey+f floating toggle; \
+    [tiling con_id=__focused__] border pixel 1; \
+    [floating con_id=__focused__] border normal 1 
+
+# "maximize" (move to parent container and toggle tabbed?)
+# TODO: find a good way to "maximize" a window
+# (might need external scripting though...)
+# * split root container of workspace
+# * move window to root container
+# * switch to tabbed layout
+#bindsym $modkey+m focus parent; layout tabbed
+
+# scratchpad aka minimizing alternative
+bindsym $modkey+n move scratchpad
+bindsym $modkey+Shift+n scratchpad show; \
+    [floating con_id=__focused__] border normal 1 
+
+# change focus
+bindsym $modkey+h focus left
+bindsym $modkey+j focus down
+bindsym $modkey+k focus up
+bindsym $modkey+l focus right
+
+bindsym $altkey+tab focus next
+bindsym $altkey+shift+Tab focus prev
+bindsym $modkey+tab focus mode_toggle
+
+# quick switch to other output (only works for outputs left/right)
+# use kanshi to rebind if monitors are supposed to be above 
+bindsym ctrl+$modkey+j focus output right
+# move focus around the outputs
+bindsym ctrl+$modkey+Left focus output left
+bindsym ctrl+$modkey+Down focus output down
+bindsym ctrl+$modkey+Up focus output up
+bindsym ctrl+$modkey+Right focus output right
+
+# layouts
+bindsym $modkey+Space layout toggle
+
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle splitv splith tabbed
+#bindsym $mod+s layout stacking
+
+bindsym $modkey+s split toggle
+bindsym $modkey+b splith
+bindsym $modkey+v splitv
+
+# move focused window
+bindsym $modkey+Shift+H move left
+bindsym $modkey+Shift+J move down
+bindsym $modkey+Shift+K move up
+bindsym $modkey+Shift+L move right
+
+# switch to workspace
+bindsym $modkey+1 workspace 1
+bindsym $modkey+2 workspace 2
+bindsym $modkey+3 workspace 3
+bindsym $modkey+4 workspace 4
+bindsym $modkey+5 workspace 5
+bindsym $modkey+6 workspace 6
+bindsym $modkey+7 workspace 7
+bindsym $modkey+8 workspace 8
+bindsym $modkey+9 workspace 9
+bindsym $modkey+0 workspace 10
+
+
+bindsym $modkey+Left workspace prev_on_output
+bindsym $modkey+Right workspace next_on_output
+bindsym $modkey+Up workspace prev
+bindsym $modkey+Down workspace next
+
+# move window to workspace
+bindsym $modkey+Shift+1 move to workspace 1
+bindsym $modkey+Shift+2 move to workspace 2
+bindsym $modkey+Shift+3 move to workspace 3
+bindsym $modkey+Shift+4 move to workspace 4
+bindsym $modkey+Shift+5 move to workspace 5
+bindsym $modkey+Shift+6 move to workspace 6
+bindsym $modkey+Shift+7 move to workspace 7
+bindsym $modkey+Shift+8 move to workspace 8
+bindsym $modkey+Shift+9 move to workspace 9
+bindsym $modkey+Shift+0 move to workspace 10
+
+bindsym $modkey+i move to workspace back_and_forth
+
+# output switch
+mode "output-switch" {
+    bindsym h move to output left
+    bindsym j move to output down
+    bindsym k move to output up
+    bindsym l move to output right
+    bindsym Left move to output left
+    bindsym Down move to output down
+    bindsym Up move to output up
+    bindsym Right move to output right
+    
+    bindsym $modkey+h move workspace to output left
+    bindsym $modkey+j move workspace to output down
+    bindsym $modkey+k move workspace to output up
+    bindsym $modkey+l move workspace to output right
+    bindsym $modkey+Left move workspace to output left
+    bindsym $modkey+Down move workspace to output down
+    bindsym $modkey+Up move workspace to output up
+    bindsym $modkey+Right move workspace to output right
+
+    bindsym ctrl+$modkey+h focus output left
+    bindsym ctrl+$modkey+j focus output down
+    bindsym ctrl+$modkey+k focus output up
+    bindsym ctrl+$modkey+l focus output right
+    bindsym ctrl+$modkey+Left focus output left
+    bindsym ctrl+$modkey+Down focus output down
+    bindsym ctrl+$modkey+Up focus output up
+    bindsym ctrl+$modkey+Right focus output right
+
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $modkey+o mode "default"
+}
+bindsym $modkey+o mode "output-switch"
+
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    bindsym h resize grow left 10 px or 10 ppt
+    bindsym Shift+H resize shrink left 10 px or 10 ppt
+
+    bindsym j resize grow down 10 px or 10 ppt
+    bindsym Shift+J resize shrink down 10 px or 10 ppt
+
+    bindsym k resize grow up 10 px or 10 ppt
+    bindsym Shift+K resize shrink up 10 px or 10 ppt
+
+    bindsym l resize grow right 10 px or 10 ppt
+    bindsym Shift+L resize shrink right 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left resize grow left 10 px or 10 ppt
+    bindsym Shift+Left resize shrink left 10 px or 10 ppt
+
+    bindsym Down resize grow down 10 px or 10 ppt
+    bindsym Shift+Down resize shrink down 10 px or 10 ppt
+
+    bindsym Up resize grow up 10 px or 10 ppt
+    bindsym Shift+Up resize shrink up 10 px or 10 ppt
+
+    bindsym Right resize grow right 10 px or 10 ppt
+    bindsym Shift+Right resize shrink right 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $modkey+r mode "default"
+}
+bindsym $modkey+r mode "resize"
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+
+
+###############################################
+# Window/Application specific rules
+###############################################
+
+for_window [window_role="task_dialog|bubble|page-info|Preferences|pop-up"] floating enable
+
+for_window [window_role="Open Files"] floating enable
+for_window [window_role="File Operation Progress"] floating enable
+for_window [window_role="Save As"] floating enable
+
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+#for_window [class="VirtualBox"] floating enable
+
+# selectively disable borders?
+#for_window [class="chromium" instance="chromium"] border none
+#for_window [class="firefox" instance="firefox"] border none
+
+
+###############################################
+# Bar configuration
+###############################################
+
+bar {
+	swaybar_command waybar
+}
+
+
+###############################################
+# External Programs/Services
+###############################################
+
+# notification server
+exec mako
+
+exec gnome-keyring-daemon --start --foreground --components=secrets
+exec /usr/libexec/xfce-polkit
+
+# set gtk theme
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Ultimate-Delta-Blue'
+    gsettings set $gnome-schema icon-theme 'Blue-Maia'
+    #gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
+}
+
+# TODO: those don't show up in the tray for some reason :(?
+#exec blueberry-tray
+#exec nm-applet
+#exec blueman-applet
+
+# broken/needed?
+#exec xfce4-power-manager
+
+# not packaged anymore, do I need this?
+#exec xsettingsd
+
+# blank screens on idle
+exec swayidle -w \
+    timeout 600 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on"'
+
+# hotplug screen profiles
+exec kanshi

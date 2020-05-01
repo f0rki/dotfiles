@@ -1,0 +1,280 @@
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
+
+@keyframes blink-warning {
+    70% {
+        color: white;
+    }
+
+    to {
+        color: white;
+        background-color: orange;
+    }
+}
+
+@keyframes blink-critical {
+    70% {
+      color: white;
+    }
+
+    to {
+        color: white;
+        background-color: red;
+    }
+}
+
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+/* Reset all styles */
+* {
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* The whole bar */
+#waybar {
+    background: #2e3440;
+    color: white;
+    font-family: Anonymice Nerd Font, Noto Sans, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Each module */
+#battery,
+#clock,
+#cpu,
+#custom-keyboard-layout,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#temperature,
+#custom-alsa,
+#tray {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+#custom-alsa {
+}
+
+#custom-keyboard-layout {
+    background: #5e81ac;
+    color: #d8dee9;
+}
+
+#battery {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    background: #88c0d0;
+    color: #434c5e;
+}
+
+#battery.warning {
+    color: orange;
+}
+
+#battery.critical {
+    color: red;
+}
+
+#battery.warning.discharging {
+    animation-name: blink-warning;
+    animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+    animation-name: blink-critical;
+    animation-duration: 2s;
+}
+
+#clock.date {
+    background: #2e3440;
+    color: #e5e9f0;
+    font-weight: bold;
+}
+
+#clock.time {
+    background: #eceff4;
+    color: #2e3440;
+    font-weight: bold;
+}
+
+#cpu {
+    background: #434c5e;
+    color: #e5e9f0;
+}
+
+#cpu.warning {
+    color: orange;
+}
+
+#cpu.critical {
+    color: red;
+}
+
+#memory {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    background: #88c0d0;
+    color: #3b4252;
+}
+
+#memory.warning {
+    color: orange;
+}
+
+#memory.critical {
+    color: red;
+    animation-name: blink-critical;
+    animation-duration: 2s;
+}
+
+#mode {
+    /*background: #64727D;*/
+	background: #5e81ac;
+
+    /*border-top: 2px solid white;*/
+    /* To compensate for the top border and still have vertical centering */
+    /*padding-bottom: 2px;*/
+}
+
+#network {
+    background: #4c566a;
+    color: #e5e9f0;
+}
+
+#network.disconnected {
+    color: orange;
+}
+
+#pulseaudio {
+    background: #d8dee9;
+    color: #3b4252;
+}
+
+#pulseaudio.muted {
+    background: #d8dee9;
+    color: #3b4252;
+}
+
+#custom-spotify {
+    color: rgb(102, 220, 105);
+}
+
+#temperature {
+    background: #d8dee9;
+    color: #2e3440;
+}
+
+#temperature.critical {
+    color: red;
+}
+
+#tray {
+    /* No styles */
+}
+
+#window {
+    font-weight: bold;
+}
+
+#workspaces button {
+    /*border-top: 2px solid transparent;*/
+    /* To compensate for the top border and still have vertical centering */
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #2e3440;
+    background: #5e81ac;
+}
+
+#workspaces button.focused {
+    border-color: #4c7899;
+    color: #5e81ac;
+    background-color: #2e3440;
+}
+
+#workspaces button.urgent {
+    border-color: #c9545d;
+    color: #c9545d;
+}
+
+#custom-arrow1 {
+        font-size: 20px;
+	color: #d8dee9;
+	background: transparent
+}
+#custom-arrow2 {
+        font-size: 20px;
+	color: #4c566a;
+	background: #d8dee9
+}
+#custom-arrow3 {
+        font-size: 20px;
+	color: #88c0d0;
+	background: #4c566a
+}
+#custom-arrow4 {
+        font-size: 20px;
+	color: #434c5e;
+	background: #88c0d0
+}
+#custom-arrow5 {
+    font-size: 20px;
+	color: #d8dee9;
+	background: #434c5e
+}
+#custom-arrow6 {
+    font-size: 20px;
+	color: #5e81ac;
+	/*background: #d8dee9;*/
+    background: #434c5e;
+}
+#custom-arrow7 {
+        font-size: 20px;
+	color: #88c0d0;
+	background: #5e81ac
+}
+#custom-arrow8 {
+        font-size: 20px;
+	color: #2e3440;
+	background: #88c0d0
+}
+#custom-arrow9 {
+        font-size: 20px;
+	color: #eceff4;
+	background: #2e3440;
+}
+#custom-arrow10 {
+    font-size: 20px;
+	color: #5e81ac;
+	background: transparent;
+}
+#custom-arrow11 {
+        font-size: 20px;
+	color: #949494;
+	background: #4e4e4e;
+}
