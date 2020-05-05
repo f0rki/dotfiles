@@ -202,10 +202,10 @@
 }
 
 #workspaces button {
-    border: 1px solid transparent;
-    /*border-bottom: 2px solid transparent;*/
+    /*border: 1px solid transparent;*/
+    border-bottom: 1px solid transparent;
     /* To compensate for the top border and still have vertical centering */
-    /*padding-top: 2px;*/
+    padding-top: 1px;
     padding-left: 5px;
     padding-right: 5px;
     color: #2e3440;
@@ -225,7 +225,8 @@
 }
 
 #workspaces button.focused {
-    border-color: #5e81ac;
+    border-color: white;
+    text-decoration: underline;
 }
 
 #workspaces button.current_output {
