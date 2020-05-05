@@ -7,10 +7,9 @@ set $mod Mod4
 set $altkey Mod1
 set $raltkey Mod5
 
-set $term alacritty
+set $term fish -c alacritty
 set $browser env MOZ_ENABLE_WAYLAND=1 firefox
-set $alt_browser "google-chrome || chromium"
-#set $mailer thunderbird
+set $alt_browser fish -c chrome
 set $mailer evolution
 #set $filemanager thunar
 set $filemanager nemo
@@ -19,7 +18,7 @@ set $suspend_cmd "swaylock -f -c 000000 && sleep 1 && sudo systemctl suspend"
 
     #-modi combi,run,window,ssh -combi-mode run,window,ssh \
 #set $launcher /home/f0rki/.local/rofi/bin/rofi -modi combi,run,ssh -combi-mode run,ssh -show combi -sidebar-mode -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
-set $launcher /home/f0rki/.local/rofi/bin/rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
 
 # wofi support this?
 #set $launcher wofi --show run,drun --term $term 
@@ -98,6 +97,8 @@ floating_modifier $modkey
 focus_wrapping workspace
 # disable auto focus
 focus_follows_mouse yes
+# This might be the reason for the slack issue?
+#focus_follows_mouse no
 # mouse follows outputs
 mouse_warping output
 
@@ -156,7 +157,7 @@ bindsym ctrl+$modkey+Right focus output right
 bindsym $modkey+Space layout toggle
 
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle splitv splith tabbed
+bindsym $mod+e layout toggle splitv split
 #bindsym $mod+s layout stacking
 
 bindsym $modkey+s split toggle
@@ -350,4 +351,4 @@ exec swayidle -w \
          resume 'swaymsg "output * dpms on"'
 
 # hotplug screen profiles
-exec kanshi
+exec_always fish -c 'killall kanshi;kanshi'
