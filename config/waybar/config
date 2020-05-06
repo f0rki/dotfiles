@@ -69,16 +69,14 @@
     },
 
     "clock#time": {
-        "interval": 10,
-        //"format": "{:%H:%M:%S}",
+        "interval": 30,
         "format": "{:%H:%M}",
         "tooltip": false
     },
 
     "clock#date": {
-        "interval": 20,
+        "interval": 60,
         "format": "{:%a, %e %b}",
-        //"tooltip-format": "{:%e %B %Y}"
         "tooltip": false
     },
 
@@ -112,9 +110,8 @@
     },
 
     "network": {
-        "interval": 5,
+        "interval": 10,
 
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",
@@ -125,7 +122,7 @@
     },
 
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>", // Icon: expand-arrows-alt
+        "format": "<span style=\"italic\">{}</span>",
         "tooltip": false
     },
 
@@ -135,19 +132,20 @@
     },
 
     "sway/workspaces": {
-        "all-outputs": false,
+        "all-outputs": true,
+        "numeric-first": true,
         "disable-scroll": true,
-        "format": "{name}",
-        "format-icons": {
-            "urgent": "",
-            "focused": "",
-            "default": ""
-            //"1:www": "龜", // Icon: firefox-browser
-            //"2:mail": "", // Icon: mail
-            //"3:editor": "", // Icon: code
-            //"4:terminals": "", // Icon: terminal
-            //"5:portal": "", // Icon: terminal
-        }
+        "format": "{name}"
+        //"format-icons": {
+        //    "urgent": "",
+        //    "focused": "",
+        //    "default": ""
+        //"1:www": "龜", // Icon: firefox-browser
+        //"2:mail": "", // Icon: mail
+        //"3:editor": "", // Icon: code
+        //"4:terminals": "", // Icon: terminal
+        //"5:portal": "", // Icon: terminal
+        //}
     },
 
     //"custom/layout": {

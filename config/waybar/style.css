@@ -202,24 +202,35 @@
 }
 
 #workspaces button {
-    /*border-top: 2px solid transparent;*/
+    /*border: 1px solid transparent;*/
+    border-bottom: 1px solid transparent;
     /* To compensate for the top border and still have vertical centering */
-    padding-bottom: 2px;
+    padding-top: 1px;
     padding-left: 5px;
     padding-right: 5px;
     color: #2e3440;
     background: #5e81ac;
+    font-weight: bold;
 }
 
-#workspaces button.focused {
-    border-color: #4c7899;
+#workspaces button.visible {
     color: #5e81ac;
+    border-color: #2e3440;
     background-color: #2e3440;
 }
 
 #workspaces button.urgent {
     border-color: #c9545d;
     color: #c9545d;
+}
+
+#workspaces button.focused {
+    border-color: white;
+    text-decoration: underline;
+}
+
+#workspaces button.current_output {
+    color: #ffffff;
 }
 
 #custom-arrow1 {
