@@ -32,6 +32,9 @@ input type:keyboard {
 }
 
 
+include host
+
+
 ###############################################
 # style
 ###############################################
@@ -43,23 +46,6 @@ default_floating_border normal 1
 hide_edge_borders smart_no_gaps
 smart_borders on
 
-###############################################
-# Wallpaper (other output settings handled by kanshi)
-###############################################
-
-# background modes: "stretch", "fill", "fit", "center", "tile"
-
-output "Samsung Electric Company C34H89x H4ZN101108" {
-    background ~/Pictures/Wallpapers/thg6v3xlvg4z.png stretch
-}
-
-output "Chimei Innolux Corporation 0x14C9 0x00000000" {
-    background ~/Pictures/Wallpapers/crn7iov2l3u41.jpg stretch
-}
-
-output "Iiyama North America PL2783Q 1151265101777" {
-    background ~/Pictures/Wallpapers/sXUava9.jpg stretch
-}
 
 ###############################################
 # Program Keybindings
@@ -321,8 +307,11 @@ bar {
 
 # notification server
 exec mako
+# hotplug screen profiles
+exec kanshi
 
 exec gnome-keyring-daemon --start --foreground --components=secrets
+
 exec /usr/libexec/xfce-polkit
 
 # set gtk theme
@@ -335,7 +324,6 @@ exec_always {
 
 # TODO: those don't show up in the tray for some reason :(?
 #exec blueberry-tray
-#exec nm-applet
 #exec blueman-applet
 
 # broken/needed?
@@ -348,6 +336,3 @@ exec_always {
 exec swayidle -w \
     timeout 600 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"'
-
-# hotplug screen profiles
-exec kanshi

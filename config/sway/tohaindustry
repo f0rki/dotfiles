@@ -1,0 +1,24 @@
+
+set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+
+###############################################
+# Wallpaper (other output settings handled by kanshi)
+###############################################
+
+# background modes: "stretch", "fill", "fit", "center", "tile"
+
+output "Samsung Electric Company C34H89x H4ZN101108" {
+     background ~/Pictures/Wallpapers/2xVsf7S.jpg stretch
+}
+
+###############################################
+# program launcher
+###############################################
+
+exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+
+exec_always {
+    gsettings set org.gnome.desktop.interface font-name "Ubuntu Nerd 20"
+}
+
+exec exec nm-applet --indicator

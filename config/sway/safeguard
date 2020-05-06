@@ -1,0 +1,20 @@
+
+set $launcher /home/f0rki/.local/rofi/bin/rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+
+###############################################
+# Wallpaper (other output settings handled by kanshi)
+###############################################
+
+# background modes: "stretch", "fill", "fit", "center", "tile"
+
+output "Samsung Electric Company C34H89x H4ZN101108" {
+    background ~/Pictures/Wallpapers/thg6v3xlvg4z.png stretch
+}
+
+output "Chimei Innolux Corporation 0x14C9 0x00000000" {
+    background ~/Pictures/Wallpapers/crn7iov2l3u41.jpg stretch
+}
+
+output "Iiyama North America PL2783Q 1151265101777" {
+    background ~/Pictures/Wallpapers/sXUava9.jpg stretch
+}

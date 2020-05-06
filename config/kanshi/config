@@ -1,3 +1,4 @@
+# safeguard:
 profile home {
     output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 1920,0
     output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,500
@@ -12,4 +13,9 @@ profile home-above {
 
 profile single {
     output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080
+}
+
+# (safeguard | tohaindustry)
+profile home-single {
+    output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 0,0
 }
