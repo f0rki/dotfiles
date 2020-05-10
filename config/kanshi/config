@@ -1,7 +1,13 @@
 # safeguard:
-profile home {
+profile safeguard-home {
     output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 1920,0
     output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,500
+}
+
+profile safeguard-home-2 {
+    output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 1920,0
+    output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,500
+    output "Samsung Electric Company C34H89x H1AK500000" mode off
 }
 
 profile home-above {
@@ -15,7 +21,15 @@ profile single {
     output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080
 }
 
-# (safeguard | tohaindustry)
+# tohaindustry:
 profile home-single {
     output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 0,0
+}
+
+
+# voidspace in docking station with hdmi
+
+profile voidspace-home-hdmi {
+    output "Samsung Electric Company C34H89x H1AK500000" mode 3440x1440 position 1920,0
+    output eDP-1 mode 1920x1080 position 0,500
 }
