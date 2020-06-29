@@ -1,0 +1,8 @@
+
+
+# notification server
+#exec mako
+# hotplug screen profiles
+#exec_always sh -c 'killall kanshi;kanshi'
+
+#exec gnome-keyring-daemon --start --foreground --components=secrets

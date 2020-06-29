@@ -22,3 +22,9 @@ exec_always {
 }
 
 exec exec nm-applet --indicator
+
+
+# blank screens on idle
+exec swayidle -w \
+    timeout 600 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on";'

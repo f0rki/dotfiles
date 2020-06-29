@@ -292,6 +292,8 @@ for_window [window_type="menu"] floating enable
 #for_window [class="chromium" instance="chromium"] border none
 #for_window [class="firefox" instance="firefox"] border none
 
+for_window [app_id="firefox" title="Password Required - Mozilla Firefox"] floating enable
+
 
 ###############################################
 # Bar configuration
@@ -321,7 +323,10 @@ exec_always {
     #gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
 }
 
-# TODO: those don't show up in the tray for some reason :(?
+# some "tray" applets / libindicator
+exec nm-applet --indicator
+
+# TODO: find a working bluetooth applet?
 #exec blueberry-tray
 #exec blueman-applet
 
@@ -335,3 +340,4 @@ exec_always {
 exec swayidle -w \
     timeout 600 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"'
+
