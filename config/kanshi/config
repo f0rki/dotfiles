@@ -21,6 +21,9 @@ profile safeguard-work {
     output "Chimei Innolux Corporation 0x14C9 0x00000000" disable
 
     exec swaymsg bindsym ctrl+\$modkey+j focus output right
+    # automatically switch to wired LAN
+    exec nmcli con down eduroam
+    exec nmcli con up dhcp-work
 }
 
 profile home-above {
@@ -42,7 +45,8 @@ profile voidspace-home-hdmi {
 profile safeguard-single {
     output eDP-1 mode 1920x1080
 
-    exec killall waybar; waybar &
+    # seems it is not needed anymore...
+    #exec killall waybar; waybar &
 }
 
 # tohaindustry (single display)
