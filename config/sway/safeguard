@@ -1,5 +1,5 @@
 
-set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+#set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
 
 ###############################################
 # Wallpaper (other output settings handled by kanshi)

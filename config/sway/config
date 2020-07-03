@@ -18,10 +18,15 @@ set $suspend_cmd "swaylock -f -c 000000 && sleep 1 && sudo systemctl suspend"
 
     #-modi combi,run,window,ssh -combi-mode run,window,ssh \
 #set $launcher /home/f0rki/.local/rofi/bin/rofi -modi combi,run,ssh -combi-mode run,ssh -show combi -sidebar-mode -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
-set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
-
+#set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
 # wofi support this?
 #set $launcher wofi --show run,drun --term $term 
+
+# tofi launcher
+set $launcher alacritty --class tofi -d 120 20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf | $HOME/.config/sway/scripts/tofi.py'
+# make the tofi window sticky
+for_window [app_id="tofi"] floating enable, border pixel 2, sticky enable
+
 
 # Input 
 input type:keyboard {
