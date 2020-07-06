@@ -75,7 +75,7 @@
         "format-icons": {
             "activated": "",
             "deactivated": ""
-        },
+        }
     },
 
     "clock#time": {
