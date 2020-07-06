@@ -27,7 +27,9 @@ HISTORY_PATH = (pathlib.Path("~") / ".cache" / "tofi" /
                 "history.json").expanduser()
 
 SHELLS = {
-    "fish": (["fish", "-c", 'complete -C ""'], ["fish", "-c"]),
+    "fish":
+    (["fish", "-c",
+      'complete -C "" | grep -v Directory | grep -v \'\\[\''], ["fish", "-c"]),
     "bash": (["bash", "-c", "compgen -c"], ["bash", "c"]),
     "sh": (["sh", "-c", "ls `echo $PATH | tr : ' '`"], ["sh", "-c"])
 }
@@ -210,8 +212,8 @@ if __name__ == "__main__":
                           reverse=True),
                   sep="\n")
     except Exception as e:
-        print("Encountered Error:")
-        print(sys.exc_info())
-        print()
-        print("Exit?")
+        print("Encountered Error:", file=sys.stderr)
+        print(sys.exc_info(), file=sys.stderr)
+        print("", file=sys.stderr)
+        print("Exit?", file=sys.stderr)
         input()
