@@ -36,6 +36,7 @@
         "custom/keyboard-layout",
         "custom/arrow7",
         "battery",
+        "idle_inhibitor",
         "custom/arrow8",
         "tray",
         "clock#date",
@@ -66,6 +67,15 @@
             ""  // Icon: battery-empty
         ],
         "tooltip": false
+    },
+
+    
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
     },
 
     "clock#time": {

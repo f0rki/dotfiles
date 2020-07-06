@@ -71,6 +71,12 @@
     padding-right: 10px;
 }
 
+#idle_inhibitor {
+    /* no padding left, since we "join" battery and idle inhibitor in one arrow */
+    /*padding-left: 10px*/
+    padding-right: 10px;
+}
+
 
 /* -----------------------------------------------------------------------------
  * Module styles
@@ -87,6 +93,11 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    background: #88c0d0;
+    color: #434c5e;
+}
+
+#idle_inhibitor {
     background: #88c0d0;
     color: #434c5e;
 }
