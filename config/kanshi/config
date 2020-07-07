@@ -17,7 +17,7 @@ profile safeguard-home-2 {
 profile safeguard-work {
     output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ200467" mode 2560x1440 position 1440,530
     #output DP-4 "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 transform 270 position 0,0
-    output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 position 0,0 transform 90
+    output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 position 0,0 transform 270
     output "Chimei Innolux Corporation 0x14C9 0x00000000" disable
 
     exec swaymsg bindsym ctrl+\$modkey+j focus output right
