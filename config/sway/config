@@ -328,6 +328,9 @@ exec_always {
     #gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
 }
 
+exec /usr/libexec/xdg-desktop-portal -rv
+exec /usr/libexec/xdg-desktop-portal-wlr 
+
 # some "tray" applets / libindicator
 exec nm-applet --indicator
 
