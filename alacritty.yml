@@ -13,6 +13,7 @@ window:
 
   # Window class (Linux only):
   class: alacritty
+  dynamic_title: true
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -79,7 +80,6 @@ selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
   save_to_clipboard: false
 
-dynamic_title: true
 
 cursor:
   style: Block
