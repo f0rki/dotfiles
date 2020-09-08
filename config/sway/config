@@ -23,7 +23,7 @@ set $suspend_cmd "swaylock -f -c 000000 && sleep 1 && sudo systemctl suspend"
 #set $launcher wofi --show run,drun --term $term 
 
 # tofi launcher
-set $launcher alacritty --class tofi -d 120 20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf | $HOME/.config/sway/scripts/tofi.py'
+set $launcher alacritty --class tofi -d 120 20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf --sync | $HOME/.config/sway/scripts/tofi.py'
 # make the tofi window sticky
 for_window [app_id="tofi"] floating enable, border pixel 2, sticky enable
 
