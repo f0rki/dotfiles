@@ -38,8 +38,8 @@
         "battery",
         "idle_inhibitor",
         "custom/arrow8",
-        "tray",
         "custom/todo",
+        "tray",
         "clock#date",
         "custom/arrow9",
         "clock#time"
@@ -105,7 +105,7 @@
       "exec": "~/.config/waybar/scripts/layout.sh",
       // Interval set only as a fallback, as the value is updated by signal
       //"interval": 5,
-      "format": "{}", // Icon: keyboard
+      "format": "⌨️ {}",
       // Signal sent by Sway key binding (~/.config/sway/key-bindings)
       "signal": 1, // SIGHUP
       "tooltip": false
@@ -115,7 +115,8 @@
         "exec": "todo.sh waybar",
         "on-click": "alacritty -t \"todo.sh edit\" --working-directory ~/todo --command todo.sh edit",
         "tooltip": true,
-        "return-type": "json"
+        "return-type": "json",
+        "interval": 120
     },
 
     "memory": {

@@ -10,7 +10,10 @@ swaymsg \
           .xkb_active_layout_name |
           select(contains("English (US)") | not)
       ] |
-        first // "English"
+        first // "English" |
+        sub(" \\(US\\)"; "") |
+        sub("English"; "EN") |
+        sub("German"; "DE")
     '
 
 swaymsg \
@@ -23,5 +26,7 @@ swaymsg \
     --unbuffered \ '
       select(.change == "xkb_layout") |
         .input.xkb_active_layout_name |
-        sub(" \\(US\\)"; "")
+        sub(" \\(US\\)"; "") |
+        sub("English"; "EN") |
+        sub("German"; "DE")
     '

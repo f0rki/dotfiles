@@ -83,16 +83,16 @@ if __name__ == "__main__":
     text = []
 
     if overdue:
-        text.append(f"{len(overdue)} {icons['overdue']}")
+        text.append(f"{icons['overdue']}{len(overdue)}")
 
     if due_today:
-        text.append(f"{len(due_today)} {icons['due_today']}")
+        text.append(f"{icons['due_today']}{len(due_today)}")
 
     if due_tmr:
-        text.append(f"{len(due_tmr)} {icons['due_tmr']}")
+        text.append(f"{icons['due_tmr']}{len(due_tmr)}")
 
     if due_future:
-        text.append(f"{len(due_future)} {icons['due_future']}")
+        text.append(f"{icons['due_future']}{len(due_future)}")
 
     categories = []
 
@@ -108,6 +108,6 @@ if __name__ == "__main__":
     if not text:
         text = ["⭕"]
 
-    return_json = {"text": ",".join(text), "tooltip": tooltip_text}
+    return_json = {"text": " ".join(text), "tooltip": tooltip_text}
 
     print(json.dumps(return_json))
