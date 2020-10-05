@@ -96,14 +96,32 @@ if __name__ == "__main__":
 
     categories = []
 
-    for category in (overdue, due_today, due_tmr, due_future,
-                     sorted_undated_tasks):
+    for category, color in ((overdue, "red"), 
+                            (due_today, "red"), 
+                            (due_tmr, "yellow"), 
+                            (due_future, ""),
+                            (sorted_undated_tasks, "")):
         # print(category, file=sys.stderr)
 
         if category:
-            categories.append("\n".join(category))
+            entries = []
+            for entry in category:
+                if '(A)' in entry:
+                    entries.append(f"<span foreground=\"red\">{entry}</span>")
+                if '(B)' in entry:
+                    # blue-ish
+                    entries.append(f"<span foreground=\"#00bfff\">{entry}</span>")
+                if '(C)' in entry:
+                    # yellow/green-ish
+                    entries.append(f"<span foreground=\"#ace600\">{entry}</span>")
 
-    tooltip_text = f"\n{'=' * 80}\n".join(categories)
+            cat_text = "\n".join(entries)
+
+            cat_text += f"\n<b>{'=' * 80}</b>\n"
+
+            categories.append(cat_text)
+
+    tooltip_text = "".join(categories)
 
     if not text:
         text = ["⭕"]
