@@ -1,6 +1,3 @@
-[include]
-    path = ~/.gitconfig.local
-
 [color]
     ui = true
 
@@ -36,80 +33,97 @@
     flame = blame
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 
+    # Abbreviations for common commands
+    
     pr = pull --rebase    
     fo = fetch origin
     st = status -sb
     c = commit
     ca = commit --amend
+    # BRanch
     br = branch
+    # CheckOut
     co = checkout
+    # DiFf
     df = diff
+    # Diff Cached
     dc = diff --cached
+    # Log P
     lg = log -p
-
+    # Make Branch
+    mb = switch -c
+    # ReBase Interactive
     rbi = rebase --interactive
+    # ReBase Continue
     rbc = rebase --continue
-
-    # Show all branches
+    # Branch Verbose ; Show all branches
     bv  = branch -v 
-
-    # Show all merged branches
+    # Branch Verbose Merged; Show all merged branches
     bvm = branch -v --merged
-
     # DailyReView -- what happened before? (commit title, message + affected files)
     drv = log --since='1 day ago' --pretty=prettybody --numstat -n 15 
-
-    # Review in tree form (last 25)
+    # WeeklyReView -- what happened before? (commit title, message + affected files)
+    wrv = log --since='1 week ago' --pretty=prettybody --numstat -n 15 
+    # ReView in tree form (last 25)
     rv  = log --graph --abbrev-commit --decorate --pretty=pretty1 --all -n 25
-
-    # Review in tree from (all)
+    # ReView Long; in tree from (all)
     rvl = log --graph --abbrev-commit --decorate --pretty=pretty1 --all
-
-    # Review merges (tree form)
+    # Review Merges (tree form)
     rvm = log --graph --abbrev-commit --decorate --pretty=pretty1 --all --merges -n 25
-
-    # Short commit listing (last 25)
+    # LiSt ; Short commit listing (last 25)
     ls  = log --pretty=prettyshort -n 25
-
-    # Commit listing (all)
+    # List All; Commit listing (all)
     la  = log --pretty=prettyshort --all
-
-    # Long commit listing -- with stats of changed files
+    # List Long; Long commit listing -- with stats of changed files
     ll  = log --pretty=prettylong --decorate --numstat
-
-    # Last commit info
+    # List Commits; Last commit info
     lc  = log --numstat -1
-
-    # Diff Last commit
+    # Diff Last Commit
     dlc = diff --cached HEAD^
-
-    # Diff 'commit~1' with 'commit' (short info)
+    # Diff Commit Short; 'commit~1' with 'commit' (short info)
     dcs = "!f() { git diff --numstat "$1"^.."$1"; }; f" 
-
-    #Shortlog, number of commits per author
+    # ShortLog; number of commits per author
     sl  = shortlog -sn 
-
-    #Bring up webbrowser with repo view (needs nginx or similar)
-    web = instaweb 
-
-    #search commit messages
+    # Commit Search; search commit messages
     cs  = log --grep 
-
-    #search commit messages short
+    # Commit Search Short; search commit messages short
     css = log --abbrev-commit --pretty=pretty1 --grep 
-
-    #File log
+    # File LOG
     flog = log -- 
 
+    # Extra alias for more complex tasks
     permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 
-    #svnpull = svn fetch && svn rebase
+    svn-pr = "!git svn fetch && git svn rebase && git push"
 
 
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-	clean = git-lfs clean -- %f
+    clean = git-lfs clean -- %f
+
 [credential]
-	helper = /usr/libexec/git-core/git-credential-libsecret
+    helper = /usr/libexec/git-core/git-credential-libsecret
+
+
+# configure delta as a diff viewer
+# https://github.com/dandavison/delta
+# Install with dnf install git-delta
+[core]
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
+[include]
+    path = ~/.gitconfig.local
+
