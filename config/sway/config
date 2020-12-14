@@ -16,6 +16,8 @@ set $filemanager nemo
 set $shutdown_cmd "systemctl poweroff"
 set $suspend_cmd "swaylock -f -c 000000 && sleep 1 && sudo systemctl suspend"
 
+set $pwiki alacritty -t "Personal Wiki and TODO.txt" --command fish -c 'exec ~/bin/pwiki.sh'
+
     #-modi combi,run,window,ssh -combi-mode run,window,ssh \
 #set $launcher /home/f0rki/.local/rofi/bin/rofi -modi combi,run,ssh -combi-mode run,ssh -show combi -sidebar-mode -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
 #set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
@@ -23,7 +25,7 @@ set $suspend_cmd "swaylock -f -c 000000 && sleep 1 && sudo systemctl suspend"
 #set $launcher wofi --show run,drun --term $term 
 
 # tofi launcher
-set $launcher alacritty --class tofi -d 120 20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf --sync | $HOME/.config/sway/scripts/tofi.py'
+set $launcher alacritty --class tofi --option window.dimensions.columns=120 --option window.dimensions.lines=20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf --sync | $HOME/.config/sway/scripts/tofi.py'
 # make the tofi window sticky
 for_window [app_id="tofi"] floating enable, border pixel 2, sticky enable
 
@@ -57,10 +59,11 @@ smart_borders on
 
 bindsym $altkey+F1 exec $term
 bindsym $altkey+F2 exec $browser
-bindsym $altkey+F3 exec $mailer
-bindsym $altkey+F4 exec $alt_browser
+bindsym $altkey+F3 exec $filemanager
+bindsym $altkey+F4 exec $mailer
+bindsym $altkey+F5 exec $alt_browser
 
-bindsym ctrl+1 exec $filemanager
+bindsym $altkey+F12 exec $pwiki
 
 bindsym $altkey+e exec $launcher
 
@@ -305,7 +308,8 @@ for_window [app_id="firefox" title="Password Required - Mozilla Firefox"] floati
 ###############################################
 
 bar {
-	swaybar_command waybar
+	#swaybar_command "/home/f0rki/bin/waybar-trace"
+    swaybar_command waybar
 }
 
 
@@ -328,8 +332,10 @@ exec_always {
     #gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
 }
 
-exec /usr/libexec/xdg-desktop-portal -rv
+# manually launch all the xdg-desktop portal helpers for flatpak to work nicely
 exec /usr/libexec/xdg-desktop-portal-wlr 
+exec /usr/libexec/xdg-desktop-portal -r
+exec /usr/libexec/xdg-desktop-portal-gtk -r
 
 # some "tray" applets / libindicator
 exec nm-applet --indicator
