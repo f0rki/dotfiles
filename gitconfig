@@ -4,6 +4,10 @@
 [merge]
     tool = meld
 
+[pull]
+    # we default to fast forward merges only on "git pull"
+	ff = only
+
 # always fsck everything, otherwise we might get corrupted shit
 [transfer]
     fsckobjects = true
@@ -34,8 +38,9 @@
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 
     # Abbreviations for common commands
-    
-    pr = pull --rebase    
+
+    pr = pull --rebase
+    pm = pull --no-rebase
     fo = fetch origin
     st = status -sb
     c = commit
@@ -57,13 +62,13 @@
     # ReBase Continue
     rbc = rebase --continue
     # Branch Verbose ; Show all branches
-    bv  = branch -v 
+    bv  = branch -v
     # Branch Verbose Merged; Show all merged branches
     bvm = branch -v --merged
     # DailyReView -- what happened before? (commit title, message + affected files)
-    drv = log --since='1 day ago' --pretty=prettybody --numstat -n 15 
+    drv = log --since='1 day ago' --pretty=prettybody --numstat -n 15
     # WeeklyReView -- what happened before? (commit title, message + affected files)
-    wrv = log --since='1 week ago' --pretty=prettybody --numstat -n 15 
+    wrv = log --since='1 week ago' --pretty=prettybody --numstat -n 15
     # ReView in tree form (last 25)
     rv  = log --graph --abbrev-commit --decorate --pretty=pretty1 --all -n 25
     # ReView Long; in tree from (all)
@@ -81,20 +86,21 @@
     # Diff Last Commit
     dlc = diff --cached HEAD^
     # Diff Commit Short; 'commit~1' with 'commit' (short info)
-    dcs = "!f() { git diff --numstat "$1"^.."$1"; }; f" 
+    dcs = "!f() { git diff --numstat "$1"^.."$1"; }; f"
     # ShortLog; number of commits per author
-    sl  = shortlog -sn 
+    sl  = shortlog -sn
     # Commit Search; search commit messages
-    cs  = log --grep 
+    cs  = log --grep
     # Commit Search Short; search commit messages short
-    css = log --abbrev-commit --pretty=pretty1 --grep 
+    css = log --abbrev-commit --pretty=pretty1 --grep
     # File LOG
-    flog = log -- 
+    flog = log --
 
     # Extra alias for more complex tasks
     permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 
-    svn-pr = "!git svn fetch && git svn rebase && git push"
+	svn-pull = !git svn fetch && git svn rebase
+    svn-commit = !git svn-pull && git svn dcommit && git push
 
 
 [filter "lfs"]
@@ -126,4 +132,3 @@
 
 [include]
     path = ~/.gitconfig.local
-
