@@ -74,6 +74,7 @@ mouse:
   url:
     launcher:
       program: xdg-open
+      args: []
     modifiers: Control
 
 selection:
@@ -82,7 +83,7 @@ selection:
 
 
 cursor:
-  style: Block
+  shape: Block
   unfocused_hollow: true
 
 working_directory: None

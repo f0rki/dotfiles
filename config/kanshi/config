@@ -3,7 +3,7 @@ profile safeguard-home {
     output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 1920,0
     output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,500
 
-    exec swaymsg bindsym ctrl+\$modkey+j focus output right
+    exec ~/.config/sway/scripts/monitor-is.sh right
 }
 
 profile safeguard-home-2 {
@@ -11,7 +11,7 @@ profile safeguard-home-2 {
     output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,500
     output "Samsung Electric Company C34H89x H1AK500000" disable
 
-    exec swaymsg bindsym ctrl+\$modkey+j focus output right
+    exec ~/.config/sway/scripts/monitor-is.sh right
 }
 
 profile safeguard-work {
@@ -20,7 +20,7 @@ profile safeguard-work {
     output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 position 0,0 transform 270
     output "Chimei Innolux Corporation 0x14C9 0x00000000" disable
 
-    exec swaymsg bindsym ctrl+\$modkey+j focus output right
+    exec ~/.config/sway/scripts/monitor-is.sh right
     # automatically switch to wired LAN
     exec nmcli con down eduroam
     exec nmcli con up dhcp-work
@@ -28,9 +28,16 @@ profile safeguard-work {
 
 profile home-above {
     output "Iiyama North America PL2783Q 1151265101777" mode 2560x1440 position 0,0
-    output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 320,1440
-
-    exec swaymsg bindsym ctrl+\$modkey+j focus output up
+    output "chimei innolux corporation 0x14c9 0x00000000" mode 1920x1080 position 320,1440
+    
+    exec ~/.config/sway/scripts/monitor-is.sh up
+}
+# prefer left profile for the moment
+profile home-left {
+    output "Iiyama North America PL2783Q 1151265101777" mode 2560x1440 position 1920,0
+    output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,1100
+    
+    exec ~/.config/sway/scripts/monitor-is.sh left
 }
 
 # voidspace in docking station with hdmi
@@ -38,7 +45,7 @@ profile voidspace-home-hdmi {
     output "Samsung Electric Company C34H89x H1AK500000" mode 3440x1440 position 1920,0
     output eDP-1 mode 1920x1080 position 0,500
 
-    exec swaymsg bindsym ctrl+\$modkey+j focus output right
+    exec ~/.config/sway/scripts/monitor-is.sh right
 }
 
 # notebooks (single display)

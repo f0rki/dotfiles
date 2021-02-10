@@ -50,6 +50,9 @@ if __name__ == "__main__":
 
     for i, task in enumerate(content):
         task = task.strip()
+        if task.startswith("x"):
+            continue
+
         match = re.findall(key + r":(\d{4}-\d{2}-\d{2})", task)
 
         if match:
@@ -126,6 +129,6 @@ if __name__ == "__main__":
     if not text:
         text = ["⭕"]
 
-    return_json = {"text": " ".join(text), "tooltip": tooltip_text}
+    return_json = {"text": "".join(text), "tooltip": tooltip_text}
 
     print(json.dumps(return_json))

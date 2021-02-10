@@ -136,11 +136,14 @@ bindsym $modkey+l focus right
 
 bindsym $altkey+tab focus next
 bindsym $altkey+shift+Tab focus prev
-bindsym $modkey+tab focus mode_toggle
 
+bindsym $modkey+tab focus mode_toggle
 # quick switch to other output (only works for outputs left/right)
 # use kanshi to rebind if monitors are supposed to be above 
 bindsym ctrl+$modkey+j focus output right
+bindsym alt+$modkey+j exec "swaymsg move output right && swaymsg focus output right"
+
+
 # move focus around the outputs
 bindsym ctrl+$modkey+Left focus output left
 bindsym ctrl+$modkey+Down focus output down
@@ -198,14 +201,14 @@ bindsym $modkey+i move to workspace back_and_forth
 
 # output switch
 mode "output-switch" {
-    bindsym h move to output left
-    bindsym j move to output down
-    bindsym k move to output up
-    bindsym l move to output right
-    bindsym Left move to output left
-    bindsym Down move to output down
-    bindsym Up move to output up
-    bindsym Right move to output right
+    bindsym h exec "swaymsg move to output left && swaymsg focus output left"
+    bindsym Left exec "swaymsg move to output left && swaymsg focus output left"
+    bindsym j exec "swaymsg move to output down && swaymsg focus output down"
+    bindsym Down exec "swaymsg move to output down && swaymsg focus output down"
+    bindsym k exec "swaymsg move to output up && swaymsg focus output up"
+    bindsym Up exec "swaymsg move to output up && swaymsg focus output up"
+    bindsym l exec "swaymsg move to output right && swaymsg focus output right"
+    bindsym Right exec "swaymsg move to output right && swaymsg focus output right"
     
     bindsym $modkey+h move workspace to output left
     bindsym $modkey+j move workspace to output down
