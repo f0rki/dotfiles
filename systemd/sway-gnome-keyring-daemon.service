@@ -1,0 +1,10 @@
+[Unit]
+Description=gnome-keyring-daemon session
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/gnome-keyring-daemon --start --foreground --components=secrets
+
+[Install]
+WantedBy=sway-session.target

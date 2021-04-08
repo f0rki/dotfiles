@@ -312,20 +312,13 @@ for_window [app_id="firefox" title="Password Required - Mozilla Firefox"] floati
 
 bar {
 	#swaybar_command "/home/f0rki/bin/waybar-trace"
-    swaybar_command waybar
+    #swaybar_command waybar
 }
 
 
 ###############################################
 # External Programs/Services
 ###############################################
-
-# notification server
-exec mako
-# hotplug screen profiles
-exec_always sh -c 'killall kanshi;kanshi'
-
-exec gnome-keyring-daemon --start --foreground --components=secrets
 
 # set gtk theme
 set $gnome-schema org.gnome.desktop.interface
@@ -335,26 +328,18 @@ exec_always {
     #gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
 }
 
-# manually launch all the xdg-desktop portal helpers for flatpak to work nicely
-exec /usr/libexec/xdg-desktop-portal-wlr 
-exec /usr/libexec/xdg-desktop-portal -r
-exec /usr/libexec/xdg-desktop-portal-gtk -r
-
-# some "tray" applets / libindicator
-exec nm-applet --indicator
-
-# TODO: find a working bluetooth applet?
-#exec blueberry-tray
-#exec blueman-applet
-
-# broken/needed?
-#exec xfce4-power-manager
-
-# not packaged anymore, do I need this?
-#exec xsettingsd
-
 # blank screens on idle
-exec swayidle -w \
-    timeout 600 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"'
+#exec swayidle -w \
+#    timeout 600 'swaymsg "output * dpms off"' \
+#         resume 'swaymsg "output * dpms on"'
 
+
+#exec gnome-keyring-daemon --start --foreground --components=secrets
+# some "tray" applets / libindicator
+#exec nm-applet --indicator
+# notification server
+#exec mako
+# hotplug screen profiles
+#exec_always sh -c 'killall kanshi;kanshi'
+
+exec_always "systemctl --user import-environment; systemctl --user restart sway-session.target"

@@ -1,0 +1,14 @@
+[Unit]
+Description=Playerctl Daemon
+Wants=sound.target
+After=sound.target
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/playerctld
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target

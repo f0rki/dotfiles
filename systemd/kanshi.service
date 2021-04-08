@@ -1,0 +1,11 @@
+[Unit]
+Description=autorandr for wayland
+Documentation=man:kanshi(1)
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kanshi
+
+[Install]
+WantedBy=sway-session.target

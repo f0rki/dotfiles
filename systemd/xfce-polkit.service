@@ -1,0 +1,10 @@
+[Unit]
+Description=xfce polkit agent
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/libexec/xfce-polkit
+
+[Install]
+WantedBy=sway-session.target
