@@ -66,6 +66,7 @@
 #pulseaudio,
 #temperature,
 #custom-alsa,
+#custom-media,
 #tray {
     padding-left: 10px;
     padding-right: 10px;
@@ -181,18 +182,16 @@
     color: orange;
 }
 
+#custom-media,
 #pulseaudio {
     background: #d8dee9;
     color: #3b4252;
 }
 
+#custom-media,
 #pulseaudio.muted {
     background: #d8dee9;
     color: #3b4252;
-}
-
-#custom-spotify {
-    color: rgb(102, 220, 105);
 }
 
 #temperature {

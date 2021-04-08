@@ -25,7 +25,8 @@
     ],
     "modules-right": [
         "custom/arrow1",
-	    "pulseaudio",
+        "pulseaudio",
+        "custom/media",
         "custom/arrow2",
         "network",
         "custom/arrow3",
@@ -70,7 +71,7 @@
         "tooltip": false
     },
 
-    
+
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -131,11 +132,11 @@
     "network": {
         "interval": 10,
 
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-wifi": "{ipaddr}/{cidr} ({essid}-{signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        
+
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
 	    "on-click": "swaymsg exec 'alacritty -e nmtui'"
     },
@@ -190,6 +191,18 @@
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+
+    "custom/media": {
+        "format": "{}",
+        "return-type": "json",
+        "escape": true,
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py",
+        "on-click": "$HOME/.config/waybar/scripts/mediaplayer-toggle.sh",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        //"max-length": 100
+        //"interval": "once",
     },
 
     "tray": {
