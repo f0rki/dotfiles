@@ -14,7 +14,7 @@ output "Samsung Electric Company C34H89x H4ZN101108" {
 
 output "Chimei Innolux Corporation 0x14C9 0x00000000" {
     # 1920x1080
-    background ~/Pictures/Wallpapers/crn7iov2l3u41.jpg stretch
+    background ~/Pictures/Wallpapers/alena-aenami-004-1k1.jpg stretch
 }
 
 output "Iiyama North America PL2783Q 1151265101777" {
@@ -31,6 +31,10 @@ output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ200467" {
 output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" {
     # 2560x1XXX ???
     background ~/Pictures/Wallpapers/robin-engstrom-in-peace-1080.jpg fill
+}
+
+output "Samsung Electric Company S24D340 0x00003638" {
+    background ~/Pictures/Wallpapers/ismail-inceoglu-just-chillin.jpg stretch
 }
 
 ###############################################

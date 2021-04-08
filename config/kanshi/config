@@ -51,9 +51,6 @@ profile voidspace-home-hdmi {
 # notebooks (single display)
 profile safeguard-single {
     output eDP-1 mode 1920x1080
-
-    # seems it is not needed anymore...
-    #exec killall waybar; waybar &
 }
 
 # tohaindustry (single display)
