@@ -102,7 +102,7 @@ def create_shell_search_result(x):
         exe, desc = x[0], x[1]
         return "{}: {} # {}".format(str(Markers.SHELL.value), exe, desc)
     else:
-        return "{}: {}".format(Markers.SHELL.value, x)
+        return "{}: {}".format(Markers.SHELL.value, x[0])
 
 
 def list_shell():
