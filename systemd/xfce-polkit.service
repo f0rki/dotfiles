@@ -4,7 +4,7 @@ BindsTo=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/libexec/xfce-polkit
+ExecStart=/usr/libexec/xfce-polkit --replace
 
 [Install]
 WantedBy=sway-session.target
