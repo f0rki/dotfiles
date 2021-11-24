@@ -71,6 +71,7 @@ mouse_bindings:
 mouse:
   hide_when_typing: false
 
+hints:
   url:
     launcher:
       program: xdg-open
