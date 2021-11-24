@@ -9,17 +9,17 @@
 
 output "Samsung Electric Company C34H89x H4ZN101108" {
     # 3440x1440
-    background ~/Pictures/Wallpapers/thg6v3xlvg4z.png stretch
+    background ~/Pictures/Wallpapers/aenami_wallpaper_pack01/timeless_UltraHD.png stretch
 }
 
 output "Chimei Innolux Corporation 0x14C9 0x00000000" {
     # 1920x1080
-    background ~/Pictures/Wallpapers/alena-aenami-004-1k1.jpg stretch
+    background ~/Pictures/Wallpapers/aenami_wallpaper_pack01/serenity_UltraHD.png stretch
 }
 
 output "Iiyama North America PL2783Q 1151265101777" {
     # 2560x1XXX ???
-    background ~/Pictures/Wallpapers/sXUava9.jpg stretch
+    background ~/Pictures/Wallpapers/aenami_wallpaper_pack01/close_to_the_sun_UltraHD.png stretch
 }
 
 output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ200467" {
@@ -37,8 +37,3 @@ output "Samsung Electric Company S24D340 0x00003638" {
     background ~/Pictures/Wallpapers/ismail-inceoglu-just-chillin.jpg stretch
 }
 
-###############################################
-# program launcher
-###############################################
-
-exec /usr/libexec/xfce-polkit
