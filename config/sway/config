@@ -161,6 +161,8 @@ bindsym $modkey+s split toggle
 bindsym $modkey+b splith
 bindsym $modkey+v splitv
 
+bindsym $modkey+Shift+S sticky toggle
+
 # move focused window
 bindsym $modkey+Shift+H move left
 bindsym $modkey+Shift+J move down
@@ -201,6 +203,7 @@ bindsym $modkey+i move to workspace back_and_forth
 
 # output switch
 mode "output-switch" {
+
     bindsym h exec "swaymsg move to output left && swaymsg focus output left"
     bindsym Left exec "swaymsg move to output left && swaymsg focus output left"
     bindsym j exec "swaymsg move to output down && swaymsg focus output down"
