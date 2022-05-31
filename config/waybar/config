@@ -6,6 +6,8 @@
 //
 // =============================================================================
 
+// TODO: check out https://github.com/and3rson/graph-bars-font
+
 {
     // -------------------------------------------------------------------------
     // Global configuration
@@ -132,10 +134,10 @@
     "network": {
         "interval": 10,
 
-        "format-wifi": "{ipaddr}/{cidr} ({essid}-{signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
+        "format-wifi": "({essid}-{signalStrength}%)  ",
+        "format-ethernet": "  ",
+        "format-linked": "{ifname} (No IP)  ",
+        "format-disconnected": " ⚠ ",
 
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
 	    "on-click": "swaymsg exec 'alacritty -e nmtui'"
