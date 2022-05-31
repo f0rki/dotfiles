@@ -27,9 +27,12 @@ output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ200467" {
     background ~/Pictures/Wallpapers/wallhaven-29158.jpg stretch
 }
 
-# rotated one
 output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" {
-    # 2560x1XXX ???
+    background ~/Pictures/Wallpapers/wallhaven-29158.jpg stretch
+    # background ~/Pictures/Wallpapers/robin-engstrom-in-peace-1080.jpg fill
+}
+
+output "Fujitsu Siemens Computers GmbH B24W-7 LED YVCH106775" {
     background ~/Pictures/Wallpapers/robin-engstrom-in-peace-1080.jpg fill
 }
 

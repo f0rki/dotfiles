@@ -14,7 +14,18 @@ profile safeguard-home-2 {
     exec ~/.config/sway/scripts/monitor-is.sh right
 }
 
-profile safeguard-work {
+profile safeguard-work-new {
+    output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 position 0,0
+    output "Fujitsu Siemens Computers GmbH B24W-7 LED YVCH106775" mode 1920x1200 transform 90 position 2560,-200
+    output "Chimei Innolux Corporation 0x14C9 0x00000000" disable
+
+    exec ~/.config/sway/scripts/monitor-is.sh right
+    # automatically switch to wired LAN
+    exec nmcli con down eduroam
+    exec nmcli con up dhcp-work
+}
+
+profile safeguard-work-old {
     output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ200467" mode 2560x1440 position 1440,530
     #output DP-4 "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 transform 270 position 0,0
     output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 position 0,0 transform 270
@@ -49,7 +60,7 @@ profile voidspace-home-hdmi {
 }
 
 # notebooks (single display)
-profile safeguard-single {
+profile internal-single {
     output eDP-1 mode 1920x1080
 }
 

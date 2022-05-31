@@ -25,7 +25,7 @@ set $pwiki alacritty -t "Personal Wiki and TODO.txt" --command fish -c 'exec ~/b
 #set $launcher wofi --show run,drun --term $term 
 
 # tofi launcher
-set $launcher alacritty --class tofi --option window.dimensions.columns=120 --option window.dimensions.lines=20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf --sync | $HOME/.config/sway/scripts/tofi.py'
+set $launcher "alacritty --class tofi --option window.dimensions.columns=120 --option window.dimensions.lines=20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf --sync | $HOME/.config/sway/scripts/tofi.py'"
 # make the tofi window sticky
 for_window [app_id="tofi"] floating enable, border pixel 2, sticky enable
 
