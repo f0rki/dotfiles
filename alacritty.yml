@@ -26,11 +26,13 @@ scrolling:
 
 font:
   normal:
-    family: Source Code Pro Medium
+    #family: Source Code Pro Medium
+    #family: Sauce Code Pro Medium
     #family: monospace
+    family: Hack
 
   # Point size
-  size: 12.0
+  size: 12
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
@@ -62,8 +64,6 @@ colors:
     magenta: '0xb77ee0'
     cyan:    '0x54ced6'
     white:   '0xffffff'
-
-background_opacity: 1.0
 
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
