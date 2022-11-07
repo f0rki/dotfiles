@@ -1,0 +1,12 @@
+window:
+  decorations: "none"
+
+dynamic_title: true
+
+font:
+  size: 12
+  normal:
+    #family: Source Code Pro Medium
+    #family: Sauce Code Pro Medium
+    #family: monospace
+    family: "Hack"

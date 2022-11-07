@@ -1,0 +1,15 @@
+window:
+  decorations: "full"
+
+dynamic_title: true
+
+shell:
+  program: /Users/mrodler/.nix-profile/bin/fish
+
+font:
+  normal:
+    #family: Source Code Pro Medium
+    #family: Sauce Code Pro Medium
+    #family: monospace
+    family: "Hack Nerd Font"
+  size: 14

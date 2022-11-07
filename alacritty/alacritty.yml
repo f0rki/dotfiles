@@ -1,12 +1,11 @@
 live_config_reload: true
 
+import:
+  - ~/.config/alacritty/alacritty.host.yml
+
 window:
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
-
-  # Window decorations
-  # full | none
-  decorations: none
 
   # Startup Mode (changes require restart)
   startup_mode: Windowed
@@ -23,16 +22,6 @@ scrolling:
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
   multiplier: 3
-
-font:
-  normal:
-    #family: Source Code Pro Medium
-    #family: Sauce Code Pro Medium
-    #family: monospace
-    family: Hack
-
-  # Point size
-  size: 12
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
@@ -82,7 +71,6 @@ selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
   save_to_clipboard: false
 
-
 cursor:
   shape: Block
   unfocused_hollow: true
@@ -90,4 +78,5 @@ cursor:
 working_directory: None
 
 key_bindings:
-  - {key: N, mods: Control|Shift, action: SpawnNewInstance}
+  - {key: N, mods: Control|Shift, action: CreateNewWindow}
+  - {key: F, mods: Control|Shift, action: SearchForward}
