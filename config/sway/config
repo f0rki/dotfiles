@@ -11,8 +11,8 @@ set $term fish -c alacritty
 set $browser env MOZ_ENABLE_WAYLAND=1 firefox
 set $alt_browser fish -c chrome
 set $mailer evolution
-#set $filemanager thunar
-set $filemanager nemo
+set $filemanager thunar
+# set $filemanager nemo
 set $shutdown_cmd "systemctl poweroff"
 set $suspend_cmd "swaylock -f -c 000000 && sleep 1 && sudo systemctl suspend"
 

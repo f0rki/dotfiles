@@ -202,7 +202,7 @@
         "exec": "$HOME/.config/waybar/scripts/mediaplayer.py",
         "on-click": "$HOME/.config/waybar/scripts/mediaplayer-toggle.sh",
         "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous",
+        "on-scroll-down": "playerctl previous"
         //"max-length": 100
         //"interval": "once",
     },

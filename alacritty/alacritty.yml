@@ -66,6 +66,11 @@ hints:
       program: xdg-open
       args: []
     modifiers: Control
+  #url:
+  #  launcher:
+  #    program: xdg-open
+  #    args: []
+  #  modifiers: Control
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"

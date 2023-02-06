@@ -1,5 +1,6 @@
 
-set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+#set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-client} {host}" -run-command "fish -c \"{cmd}\""
+#set $launcher alacritty --class tofi -d 120 20 -e sh -c '$HOME/.config/sway/scripts/tofi.py | fzf --sync | $HOME/.config/sway/scripts/tofi.py'
 
 ###############################################
 # Wallpaper (other output settings handled by kanshi)
@@ -8,7 +9,7 @@ set $launcher rofi -show run -terminal $term -ssh-command "{terminal} -x {ssh-cl
 # background modes: "stretch", "fill", "fit", "center", "tile"
 
 output "Samsung Electric Company C34H89x H4ZN101108" {
-     background ~/Pictures/Wallpapers/2xVsf7S.jpg stretch
+     background ~/Pictures/Wallpaper/2xVsf7S.jpg stretch
 }
 
 ###############################################
@@ -17,14 +18,20 @@ output "Samsung Electric Company C34H89x H4ZN101108" {
 
 exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
 
-exec_always {
-    gsettings set org.gnome.desktop.interface font-name "Ubuntu Nerd 20"
-}
+#exec_always {
+    #gsettings set org.gnome.desktop.interface font-name "Ubuntu Nerd 20"
+#}
 
-exec exec nm-applet --indicator
+exec_always dbus-sway-environment
 
+exec nm-applet --indicator
+# exec waybar
+exec mako
+exec gnome-keyring-daemon --start --foreground --components=secrets
 
 # blank screens on idle
 exec swayidle -w \
     timeout 600 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on";'
+
+exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
