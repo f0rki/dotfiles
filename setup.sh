@@ -10,6 +10,9 @@ fi
 if [[ ! -L ~/.gitconfig ]]; then
     ln -s "$PWD/gitconfig" ~/.gitconfig
 fi
+if [[ ! -L ~/.dprint.json ]]; then
+    ln -s "$PWD/dprint.json" ~/.dprint.json
+fi
 
 if [[ ! -d vim ]]; then
     rm -rf vim || true
