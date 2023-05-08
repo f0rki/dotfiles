@@ -1,9 +1,6 @@
 [color]
     ui = true
 
-[merge]
-    tool = meld
-
 [pull]
     # we default to fast forward merges only on "git pull"
 	ff = only
@@ -145,6 +142,7 @@
         difftool = true
 [alias]
         dft = difftool
+        dftc = difftool --cached
 
 [mergetool "meld"]
     useAutoMerge = auto
@@ -158,3 +156,5 @@
 
 [include]
     path = ~/.gitconfig.local
+[user]
+	name = Michael Rodler
