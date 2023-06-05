@@ -1,7 +1,9 @@
-hs.loadSpoon("SpoonInstall")
+local SpoonInstall = hs.loadSpoon("SpoonInstall")
 
+-- TODO: maybe alternative to the Lunette spoon: https://github.com/peterklijn/hammerspoon-shiftit
+-- spoon.SpoonInstall.repos.lunette = {url = 'https://github.com/f0rki/Lunette', branch = 'newresize'}
 -- window management
--- SpoonInstall:andUse("Lunette")
+-- SpoonInstall:andUse("Lunette", {repo="lunette"})
 hs.loadSpoon("Lunette")
 window_modkey = { "ctrl", "cmd" }
 window_modmodkey = { "ctrl", "cmd", "shift" }
@@ -26,6 +28,18 @@ customBindings = {
 	shrink = false,
 	undo = false,
 	redo = false,
+	resizeLeft = {
+		{ { "cmd", "alt" }, "h" },
+	},
+	resizeRight = {
+		{ { "cmd", "alt" }, "l" },
+	},
+	resizeUp = {
+		{ { "cmd", "alt" }, "k" },
+	},
+	resizeDown = {
+		{ { "cmd", "alt" }, "j" },
+	},
 }
 spoon.Lunette:bindHotkeys(customBindings)
 
@@ -41,8 +55,9 @@ end)
 
 -- move/resize windows by just clicking them with a modifier
 local SkyRocket = hs.loadSpoon("SkyRocket")
--- local SkyRocket = SpoonInstall:andUse("SkyRocket")
-sky = SkyRocket:new({
+-- spoon.SpoonInstall.repos.skyrocket = {url = 'https://github.com/dbalatero/SkyRocket.spoon', branch = 'master'}
+-- SpoonInstall:andUse("SkyRocket", {repo="skyrocket"})
+sky = spoon.SkyRocket:new({
 	opacity = 0.3,
 	moveModifiers = { "alt" },
 	moveMouseButton = "left",
@@ -57,6 +72,7 @@ hs.hotkey.bind("alt", "F1", function()
 		hs.application.launchOrFocus("alacritty")
 	else
 		hs.execute("/opt/homebrew/bin/alacritty msg create-window")
+		hs.application.launchOrFocus("alacritty")
 	end
 end)
 hs.hotkey.bind("alt", "F2", function()
@@ -64,5 +80,6 @@ hs.hotkey.bind("alt", "F2", function()
 		hs.application.launchOrFocus("Firefox")
 	else
 		hs.execute("/Applications/Firefox.app/Contents/MacOS/firefox --new-window")
+		hs.application.launchOrFocus("Firefox")
 	end
 end)
