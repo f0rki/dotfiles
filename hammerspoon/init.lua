@@ -65,6 +65,18 @@ sky = spoon.SkyRocket:new({
 	resizeMouseButton = "right",
 })
 
+
+hs.hotkey.bind("alt", "q", function()
+    local focused = hs.window.frontmostWindow();
+    local focused_screen = focused:screen();
+    focused:close();
+    local newly_focused = hs.window.frontmostWindow();
+    if newly_focused:screen() == focused_screen then
+        newly_focused:focus();
+    end
+end)
+
+
 function busyloop(count)
     local i = 0
     for j=0,count do
