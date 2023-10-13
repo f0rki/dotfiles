@@ -146,3 +146,23 @@ end
 caffeinate_if_docked_at_home()
 local docked_watcher = hs.battery.watcher.new(caffeinate_if_docked_at_home)
 docked_watcher:start()
+
+-- spotify controls
+hs.eventtap.new({hs.eventtap.event.types.systemDefined}, function(event)
+    local type = event:getType()
+    if type == hs.eventtap.event.types.systemDefined then
+        local t = event:systemKey()
+        if t.down then
+            -- print("System key: " .. t.key)
+	        if hs.application.get("Spotify") ~= nil then
+                if t.key == "PLAY" then
+                    hs.spotify.playpause()
+                elseif t.key == "NEXT" then
+                    hs.spotify.next()
+                elseif t.key == "PREVIOUS" then
+                    hs.spotify.previous()
+                end
+            end
+        end
+    end
+end):start()
