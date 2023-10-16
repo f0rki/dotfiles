@@ -27,3 +27,12 @@ if [[ ! -L ~/.config/nvim ]]; then
     mkdir -p ~/.config
     ln -s "$(pwd)/vim" ~/.config/nvim
 fi
+
+if command -v nvim >/dev/null 2>&1; then
+    pushd ~/.config/nvim
+    ./install-plug.sh
+    popd
+    nvim --headless -c 'PlugInstall --sync' -c 'q'
+    nvim --headless -c 'UpdateRemotePlugins' -c 'q'
+    nvim --headless -c 'TSInstallSync! rust c cpp python lua bash' -c 'q'
+fi
