@@ -153,8 +153,10 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 
+[user]
+	name = Michael Rodler
+	email = m@mrodler.eu
+
 
 [include]
     path = ~/.gitconfig.local
-[user]
-	name = Michael Rodler
