@@ -41,7 +41,7 @@
         "battery",
         "idle_inhibitor",
         "custom/arrow8",
-        "custom/todo",
+        //"custom/todo",
         "tray",
         "clock#date",
         "custom/arrow9",
@@ -114,6 +114,7 @@
       "tooltip": false
     },
 
+    /*
     "custom/todo": {
         "exec": "todo.sh waybar",
         "on-click": "alacritty -t \"todo.sh edit\" --working-directory ~/todo --command todo.sh edit",
@@ -121,6 +122,7 @@
         "return-type": "json",
         "interval": 120
     },
+    */
 
     "memory": {
         "interval": 5,
