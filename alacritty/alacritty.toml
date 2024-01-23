@@ -30,14 +30,13 @@ background = "0x000000"
 foreground = "0xeaeaea"
 
 [cursor]
-shape = "Block"
 unfocused_hollow = true
 
-[hints.url]
-modifiers = "Control"
-
-[hints.url.launcher]
-program = "xdg-open"
+# [hints.url]
+# modifiers = "Control"
+#
+# [hints.url.launcher]
+# program = "xdg-open"
 
 [[keyboard.bindings]]
 action = "CreateNewWindow"
@@ -77,5 +76,5 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 [window]
 class = "alacritty"
 dynamic_padding = false
-dynamic_title = true
+# dynamic_title = true
 startup_mode = "Windowed"
