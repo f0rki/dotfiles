@@ -1,0 +1,13 @@
+dynamic_title = true
+
+[font]
+size = 14
+
+[font.normal]
+family = "Hack Nerd Font"
+
+[shell]
+program = "/Users/mrodler/.nix-profile/bin/fish"
+
+[window]
+decorations = "full"
