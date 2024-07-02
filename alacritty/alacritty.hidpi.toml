@@ -1,0 +1,10 @@
+dynamic_title = true
+
+[font]
+size = 15
+
+[font.normal]
+family = "Hack Nerd Font"
+
+[window]
+decorations = "full"
