@@ -79,4 +79,5 @@ startup_mode = "Windowed"
 [general]
 live_config_reload = true
 working_directory = "None"
-import = ["/home/mikey/.config/alacritty/alacritty.host.toml"]
+# import = ["/home/mikey/.config/alacritty/alacritty.host.toml"]
+import = ["alacritty.host.toml"]

@@ -6,7 +6,7 @@ size = 14
 [font.normal]
 family = "Hack Nerd Font"
 
-[shell]
+[terminal.shell]
 program = "/Users/mrodler/.nix-profile/bin/fish"
 
 [window]
