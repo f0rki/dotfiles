@@ -1,6 +1,8 @@
 // inspirations:
+// https://ersei.net/en/blog/niri#%E2%80%A6
 // https://git.sr.ht/~fd/nix-configs/tree/trunk/item/home/common/wayland/niri.kdl
-// 
+// https://atl.wiki/Niri
+// https://github.com/sodiboo/niri-flake
 
 // TODO:
 
@@ -129,9 +131,12 @@ hotkey-overlay {
 }
 
 // TODO: move to systemd services instead
+// e.g., https://github.com/YaLTeR/niri/wiki/Example-systemd-Setup
 spawn-at-startup "fish -c 'alacritty --daemon'"
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
 spawn-at-startup "nm-applet --indicator"
 
+// TODO: needed?
+// spawn-at-startup "xwayland-satellite"
 // TODO: clipboard manager: copyq, 

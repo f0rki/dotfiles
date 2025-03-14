@@ -17,9 +17,13 @@
     "position": "top",
 
     // If height property would be not present, it'd be calculated dynamically
-    "height": 18,
+    "height": 21,
 
     "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "custom/arrow10",
+        "sway/window"
     ],
     "modules-right": [
         "custom/arrow1",
@@ -139,6 +143,33 @@
 
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
 	    "on-click": "swaymsg exec 'alacritty -e nmtui'"
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>",
+        "tooltip": false
+    },
+
+    "sway/window": {
+        //"format": "{}"
+        //"max-length": 120
+    },
+
+    "sway/workspaces": {
+        "all-outputs": true,
+        "numeric-first": true,
+        "disable-scroll": true,
+        "format": "{name}"
+        //"format-icons": {
+        //    "urgent": "",
+        //    "focused": "",
+        //    "default": ""
+        //"1:www": "龜", // Icon: firefox-browser
+        //"2:mail": "", // Icon: mail
+        //"3:editor": "", // Icon: code
+        //"4:terminals": "", // Icon: terminal
+        //"5:portal": "", // Icon: terminal
+        //}
     },
 
     //"custom/layout": {
