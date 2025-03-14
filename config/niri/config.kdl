@@ -1,0 +1,137 @@
+// inspirations:
+// https://git.sr.ht/~fd/nix-configs/tree/trunk/item/home/common/wayland/niri.kdl
+// 
+
+// TODO:
+
+input {
+	keyboard {
+		xkb {
+			layout "us,de"
+			options "grp:win_space_toggle,compose:ralt"
+			// options "compose:prsc"
+		}
+
+        track-layout "global"
+    }
+
+    touchpad {
+        tap
+
+        dwt // disable-while-typing
+        // dwtp
+        accel-speed 0.2
+    }
+
+    mouse {
+        // ?
+    }
+
+    focus-follows-mouse max-scroll-amount="0%"
+    workspace-auto-back-and-forth
+}
+
+binds {
+	// shows a list of important hotkeys.
+	Mod+Shift+Slash { show-hotkey-overlay; }
+
+    Alt+F1 { spawn "alacritty msg create-window"; }
+    Alt+Shift+F1 { spawn "alacritty --daemon"; }
+    Alt+F2 { spawn "firefox"; }
+    Alt+F3 { spawn "evolution"; }
+	Alt+E { spawn "fuzzel"; }
+
+	Alt+Q { close-window; }
+
+	Mod+H { focus-column-left; }
+	Mod+J { focus-window-or-workspace-down; }
+	Mod+K { focus-window-or-workspace-up; }
+	Mod+L { focus-column-right; }
+
+	Mod+Shift+H { move-column-left; }
+	Mod+Shift+J { move-window-down-or-to-workspace-down; }
+	Mod+Shift+K { move-window-up-or-to-workspace-up; }
+	Mod+Shift+L { move-column-right; }
+
+	Mod+Home { focus-column-first; }
+	Mod+End { focus-column-last; }
+	Mod+Shift+Home { move-column-to-first; }
+	Mod+Shift+End { move-column-to-last; }
+
+    Mod+BracketLeft { consume-or-expel-window-left; }
+	Mod+BracketRight { consume-or-expel-window-right; }
+
+	Mod+Ctrl+H { focus-monitor-left; }
+	Mod+Ctrl+J { focus-monitor-down; }
+	Mod+Ctrl+K { focus-monitor-up; }
+	Mod+Ctrl+L { focus-monitor-right; }
+
+	Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+	Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
+	Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
+	Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
+
+
+    Mod+Shift+F { fullscreen-window; }
+	Mod+F { maximize-column; }
+	Mod+C { center-column; }
+
+    Mod+W { toggle-column-tabbed-display; }
+
+    Mod+1 { focus-workspace 1; }
+	Mod+2 { focus-workspace 2; }
+	Mod+3 { focus-workspace 3; }
+	Mod+4 { focus-workspace 4; }
+	Mod+5 { focus-workspace 5; }
+	Mod+6 { focus-workspace 6; }
+	Mod+7 { focus-workspace 7; }
+	Mod+8 { focus-workspace 8; }
+	Mod+9 { focus-workspace 9; }
+	Mod+0 { focus-workspace 10; }
+	Mod+Shift+1 { move-column-to-workspace 1; }
+	Mod+Shift+2 { move-column-to-workspace 2; }
+	Mod+Shift+3 { move-column-to-workspace 3; }
+	Mod+Shift+4 { move-column-to-workspace 4; }
+	Mod+Shift+5 { move-column-to-workspace 5; }
+	Mod+Shift+6 { move-column-to-workspace 6; }
+	Mod+Shift+7 { move-column-to-workspace 7; }
+	Mod+Shift+8 { move-column-to-workspace 8; }
+	Mod+Shift+9 { move-column-to-workspace 9; }
+	Mod+Shift+0 { move-column-to-workspace 10; }
+
+	// Function row / media keys
+	XF86AudioMute { spawn "@wireplumber@/bin/wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+	XF86AudioRaiseVolume { spawn "@wireplumber@/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
+	XF86AudioLowerVolume { spawn "@wireplumber@/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+	Shift+XF86AudioRaiseVolume { spawn "@wireplumber@/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01+"; }
+	Shift+XF86AudioLowerVolume { spawn "@wireplumber@/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01-"; }
+	XF86AudioMicMute { spawn "@wireplumber@/bin/wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+	XF86AudioPlay { spawn "@playerctl@/bin/playerctl" "play-pause"; }
+	XF86AudioPrev { spawn "@playerctl@/bin/playerctl" "previous"; }
+	XF86AudioNext { spawn "@playerctl@/bin/playerctl" "next"; }
+	XF86MonBrightnessUp { spawn "@brightnessctl@/bin/brightnessctl" "set" "5%+"; }
+	XF86MonBrightnessDown { spawn "@brightnessctl@/bin/brightnessctl" "set" "5%-"; }
+	Shift+XF86MonBrightnessUp { spawn "@brightnessctl@/bin/brightnessctl" "set" "1%+"; }
+	Shift+XF86MonBrightnessDown { spawn "@brightnessctl@/bin/brightnessctl" "set" "1%-"; }
+
+}
+
+switch-events {
+    // lid-close { spawn "notify-send" "The laptop lid is closed!"; }
+    // lid-open { spawn "notify-send" "The laptop lid is open!"; }
+}
+
+// ask for no client-side-decorations
+prefer-no-csd
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+// TODO: move to systemd services instead
+spawn-at-startup "fish -c 'alacritty --daemon'"
+spawn-at-startup "waybar"
+spawn-at-startup "mako"
+spawn-at-startup "nm-applet --indicator"
+
+// TODO: clipboard manager: copyq, 
