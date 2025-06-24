@@ -1,8 +1,12 @@
 local SpoonInstall = hs.loadSpoon("SpoonInstall")
 
--- local spaces = require("hs.spaces")
-local logger = require("hs.logger")
+require("hs.spaces")
+require("hs.logger")
+require("hs.window.filter")
 
+local logger = hs.logger.new("myconfig", "debug")
+
+--[[
 -- TODO: maybe alternative to the Lunette spoon: https://github.com/peterklijn/hammerspoon-shiftit
 -- spoon.SpoonInstall.repos.lunette = {url = 'https://github.com/f0rki/Lunette', branch = 'newresize'}
 -- window management
@@ -45,7 +49,25 @@ customBindings = {
     },
 }
 spoon.Lunette:bindHotkeys(customBindings)
+]]
 
+--[[
+SpoonInstall:andUse("WindowHalfsAndThirds"):bindHotkeys({
+    left_half = {window_modkey}, "h",
+    bottom_half = {window_modkey}, "j",
+    top_half = {window_modkey}, "k",
+    right_half = {window_modkey}, "l",
+})
+]]
+
+-- TODO: do I really need Lunette for this? something better?
+-- https://github.com/TobiasBales/dotfiles/blob/b8083b7f05c8fe6ef01674f16c518f7f60e59ef1/hammerspoon/init.lua#L60
+-- https://github.com/marromlam/dotfiles/blob/f8d04272d0732e6dd5bf754872c6d59800bfcdc1/files/.hammerspoon/init.lua#L191
+-- https://medium.com/@jhkuperus/window-management-with-hammerspoon-personal-productivity-c77adc436888
+-- https://github.com/jhkuperus/dotfiles/blob/master/hammerspoon/window-management.lua
+-- https://gist.githubusercontent.com/deepdmistry/becc7d4c9dae03c4fd3b5a948a056cf3/raw/b75f6035996bb05cd225e4b25dcb51729e1409ab/init.lua
+
+--[[
 -- set up your windowfilter
 -- switcher = hs.window.switcher.new() -- default windowfilter: only visible windows, all Spaces
 switcher = hs.window.switcher.new(hs.window.filter.new():setCurrentSpace(true):setDefaultFilter({}))
@@ -55,6 +77,26 @@ end)
 hs.hotkey.bind("alt-shift", "tab", function()
     switcher:previous()
 end)
+
+local visibleCurrentSpace = hs.window.filter.new():setOverrideFilter({
+    visible = true,
+    currentSpace = true,
+})
+
+-- switch between visible and unoccluded windows
+hs.hotkey.bind("alt", "h", function()
+    visibleCurrentSpace:focusWindowWest(nil, true, true)
+end)
+hs.hotkey.bind("alt", "j", function()
+    visibleCurrentSpace:focusWindowSouth(nil, true, true)
+end)
+hs.hotkey.bind("alt", "k", function()
+    visibleCurrentSpace:focusWindowNorth(nil, true, true)
+end)
+hs.hotkey.bind("alt", "l", function()
+    visibleCurrentSpace:focusWindowEast(nil, true, true)
+end)
+]]
 
 -- move/resize windows by just clicking them with a modifier
 local SkyRocket = hs.loadSpoon("SkyRocket")
@@ -67,6 +109,8 @@ sky = spoon.SkyRocket:new({
     resizeModifiers = { "alt" },
     resizeMouseButton = "right",
 })
+
+-- SpoonInstall:andUse("MouseFollowsFocus"):start()
 
 -- TODO: check out https://github.com/mogenson/PaperWM.spoon?tab=readme-ov-file#install-with-spooninstall
 --
@@ -157,9 +201,9 @@ ActiveSpace:start()
 -- this is also set by lunette afaik
 hs.window.animationDuration = 0
 
-
 -- hotkeys
 
+--[[
 hs.hotkey.bind("alt", "q", function()
     local focused = hs.window.frontmostWindow()
     local focused_screen = focused:screen()
@@ -169,6 +213,7 @@ hs.hotkey.bind("alt", "q", function()
         newly_focused:focus()
     end
 end)
+]]
 
 function busyloop(count)
     local i = 0
@@ -200,7 +245,7 @@ hs.hotkey.bind("alt", "F2", function()
     end
 end)
 
-hs.hotkey.bind("alt", "w", hs.spaces.toggleMissionControl)
+-- hs.hotkey.bind("alt", "w", hs.spaces.toggleMissionControl)
 
 -- TODO: modal hotkeys? https://www.hammerspoon.org/docs/hs.hotkey.modal.html
 
@@ -211,18 +256,19 @@ function caffeinate_if_docked_at_home()
         for i, screen in ipairs(hs.screen.allScreens()) do
             if screen:name() == external_screen then
                 am_i_docked = true
-                hs.logger.i("detected docked")
             end
         end
     end
 
     if am_i_docked then
+        logger:i("detected docked")
+
         -- prevent sleep on systemIdle if docked at home office
         hs.caffeinate.set("systemIdle", true, false)
 
         -- disconnect from wifi if we are docked and have ethernet available
         if hs.wifi.currentNetwork() == "Kaspresknoedl-5" or hs.wifi.currentNetwork() == "Kaspresknoedl-5" then
-            hs.logger.i("disassociated from network", hs.wifi.currentNetwork())
+            logger:i("disassociated from network", hs.wifi.currentNetwork())
             hs.wifi.disassociate()
         end
     else
@@ -238,8 +284,8 @@ tell application "System Events"
         click menu item "Kaspresknoedl-5" of menu 1 of result
     end tell
 end tell]])
-            
-        hs.logger.i("associated with network", hs.wifi.currentNetwork())
+
+        logger:i("associated with network", hs.wifi.currentNetwork())
     end
 end
 
