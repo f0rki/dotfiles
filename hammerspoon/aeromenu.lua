@@ -1,4 +1,4 @@
-local logger = hs.logger.new("aeromenu", "debug")
+local logger = hs.logger.new("aeromenu", "info")
 
 -- useful hammerpsoon APIs
 --
@@ -60,32 +60,35 @@ local logger = hs.logger.new("aeromenu", "debug")
 > aerospace list-windows --workspace 0 --json
 [
   {
-    "app-name" : "Firefox",
-    "window-id" : 2509,
-    "window-title" : "Multi-Agentic system Threat Modeling Guide v1.0 - OWASP Gen AI Security Project"
-  },
-  {
-    "app-name" : "Firefox",
-    "window-id" : 102,
-    "window-title" : "Projektzeiten - ZEP - ZeitErfassung für Projekte - Cologne Intelligence GmbH (CI)"
-  },
-  {
     "app-name" : "Logseq",
     "window-id" : 60,
-    "window-title" : "Threat Modelling"
+    "window-title" : "Whatever"
   },
   {
     "app-name" : "Microsoft Outlook",
     "window-id" : 160,
     "window-title" : "Calendar"
   },
-  {
-    "app-name" : "Microsoft Teams",
-    "window-id" : 107,
-    "window-title" : "Chat | CI Corporate News | Cologne Intelligence | mrodler@cologne-intelligence.de | Microsoft Teams"
-  }
 ]
-michaelrodle
+
+
+> aerospace list-windows --focused --json --format "%{app-name} %{window-title} %{window-id} %{app-pid} %{workspace} %{app-bundle-id} %{monitor-name} %{monitor-id}"
+[
+  {
+    "app-bundle-id" : "com.1password.1password",
+    "app-name" : "1Password",
+    "app-pid" : 88789,
+    "monitor-id" : 1,
+    "monitor-name" : "Built-in Retina Display",
+    "window-id" : 10535,
+    "window-title" : "xxx 1Password",
+    "workspace" : "9"
+  },
+
+  ....
+
+  ]
+
 ]]
 
 -- aembar:setTitle("")
@@ -96,7 +99,8 @@ local aerospace_bin = hs.fs.pathToAbsolute(aerospace_bin_path)
 logger:d("using aerospace binary at", aerospace_bin)
 
 function aerospace_cmd(cmd)
-	local result = hs.execute(string.format("%s %s --json", aerospace_bin, cmd))
+	local result = hs.execute(string.format("%s %s", aerospace_bin, cmd))
+	-- logger:d("result is: " .. result)
 	if result then
 		return hs.json.decode(result)
 	else
@@ -105,9 +109,9 @@ function aerospace_cmd(cmd)
 end
 
 function aerospace_task(args, callback_fn, nojson)
-    if not nojson then
-        table.insert(args, "--json")
-    end
+	if not nojson then
+		table.insert(args, "--json")
+	end
 	-- logger:d("starting aerospace task with args:", aerospace_bin, table.concat(args, " "))
 	local task = hs.task.new(aerospace_bin, callback_fn, args)
 	if not task then
@@ -120,41 +124,90 @@ function aerospace_task(args, callback_fn, nojson)
 	return started
 end
 
+-- globals :S
+aembar_menu_table = {}
+ainfo = {}
+
+
 -- this is slow af for some reason
 function get_aero_info()
 	local ainfo = {}
 	-- get list of monitors
-	local monitors = aerospace_cmd("list-monitors")
-	if monitors then
-		-- loop over each monitor
-		for _, monitor in ipairs(monitors) do
-			-- get list of workspace per monitor
-			local workspaces_command = string.format("list-workspaces --monitor %s", monitor["monitor-id"])
-			local workspaces = {}
-			local workspaces_res = aerospace_cmd(workspaces_command)
-			if workspaces_res then
-				for _, workspace in ipairs(workspaces_res) do
-					-- get list of windows per workspace
-					local window_command = string.format("list-windows --workspace %s", workspace.workspace)
-					local window_res = aerospace_cmd(window_command)
-					workspaces[tonumber(workspace.workspace)] = window_res
-				end
+	local data = aerospace_cmd(
+		'list-windows --all --json --format "%{app-name} %{window-title} %{window-id} %{app-pid} %{workspace} %{app-bundle-id} %{monitor-name} %{monitor-id}"'
+	)
+	if not data then
+		return nil
+	end
+	for _, window in ipairs(data) do
+		local monitor_id = window["monitor-id"]
+		if ainfo[monitor_id] then
+			local workspace_id = tonumber(window["workspace"])
+			if ainfo[monitor_id].workspaces[workspace_id] then
+				table.insert(ainfo[monitor_id].workspaces[workspace_id], window)
+			else
+				ainfo[monitor_id].workspaces[workspace_id] = {
+					[1] = window,
+				}
 			end
-			ainfo[monitor["monitor-id"]] = {
-				name = monitor["monitor-name"],
-				workspaces = workspaces,
+		else
+			ainfo[monitor_id] = {
+				name = window["monitor-name"],
+				workspaces = {},
 			}
 		end
-		-- return a table that represents the hierarchy monitor -> workspaces -> windows
-		return ainfo
 	end
+
+	-- return a table that represents the hierarchy monitor -> workspaces -> windows
+	return ainfo
 end
 
-aembar_menu_table = {}
+function get_ainfo_async()
+	-- local tasks = {}
+	local t = aerospace_task(
+		{
+			"list-windows",
+			"--all",
+			"--json",
+			"--format",
+			"%{app-name} %{window-title} %{window-id} %{app-pid} %{workspace} %{app-bundle-id} %{monitor-name} %{monitor-id}",
+		},
+		function(_exitCode, result, _stdErr)
+			local data = hs.json.decode(result)
+			if not data then
+				logger:e("failed to json decode aerospace result:", data)
+				return nil
+			end
+			ainfo = {}
+			-- get list of monitors
+			if not data then
+				return nil
+			end
+			for _, window in ipairs(data) do
+				local monitor_id = window["monitor-id"]
+				if ainfo[monitor_id] then
+					local workspace_id = tonumber(window["workspace"])
+					if ainfo[monitor_id].workspaces[workspace_id] then
+						table.insert(ainfo[monitor_id].workspaces[workspace_id], window)
+					else
+						ainfo[monitor_id].workspaces[workspace_id] = {
+							[1] = window,
+						}
+					end
+				else
+					ainfo[monitor_id] = {
+						name = window["monitor-name"],
+						workspaces = {},
+					}
+				end
+			end
+		end,
+		true
+	)
+    return t
+end
 
 function update_aembar(aembar, ainfo)
-	-- local ainfo = get_aero_info()
-
 	local menu_table = {}
 
 	-- Iterate over monitors and their workspaces
@@ -184,7 +237,11 @@ function update_aembar(aembar, ainfo)
 				table.insert(menu_table, {
 					title = sub_menu_title,
 					fn = function(modifies, item)
-						aerospace_task({ "focus", "--window-id", tostring(window_info["window-id"]) }, function() end, true)
+						aerospace_task(
+							{ "focus", "--window-id", tostring(window_info["window-id"]) },
+							function() end,
+							true
+						)
 					end,
 				})
 			end
@@ -204,53 +261,15 @@ function update_aembar(aembar, ainfo)
 	-- Set the menu using aemo_bar:setMenu
 	-- aembar:setMenu(menu_table)
 	aembar_menu_table = menu_table
+	return menu_table
 end
 
-ainfo = {}
 
-function update_aembar_async(aembar)
-	-- local tasks = {}
-	local t = aerospace_task({ "list-monitors" }, function(_exitCode, result, _stdErr)
-		local monitors = hs.json.decode(result)
-		if monitors then
-			-- loop over each monitor
-			for _, monitor in ipairs(monitors) do
-				-- logger:d("got monitor", hs.inspect(table.pack(monitor)))
-				local mnum = tonumber(monitor["monitor-id"])
-				ainfo[mnum] = { name = monitor["monitor-name"], workspaces = {} }
-				local args = { "list-workspaces", "--monitor", tostring(monitor["monitor-id"]) }
-				aerospace_task(args, function(_exitCode, result, _stdErr)
-					local workspaces = hs.json.decode(result)
-					if workspaces then
-						ainfo[mnum].workspaces = {}
-						for _, workspace_data in ipairs(workspaces) do
-							local workspace_name = tonumber(workspace_data.workspace)
-							ainfo[mnum].workspaces[workspace_name] = {}
-							local args = { "list-windows", "--workspace", tostring(workspace_name) }
-							aerospace_task(args, function(_exitCode, result, _stdErr)
-								local windows = hs.json.decode(result)
-								-- logger:d("got windows for workspace", workspace_name, hs.inspect(table.pack(windows)))
-								if windows then
-									ainfo[mnum].workspaces[workspace_name] = windows
-								else
-									logger:e("aerospace list-windows - failed")
-								end
-							end)
-						end
-					else
-						logger:e("aerospace list-workspaces - failed")
-					end
-				end)
-			end
-		else
-			logger:e("aerospace list-monitors - failed json decode")
-		end
-	end)
-end
+
 
 logger:i("hello from aeromenu")
-update_aembar_async(aembar)
-update_aembar(aembar, ainfo)
+-- update_aembar_async(aembar)
+get_ainfo_async()
 aembar = hs.menubar.new(true, "hs_aero")
 aembar:setTitle("aero")
 -- aembar:setIcon("~/.hammerpsoon/aerospace-icon.png")
@@ -258,8 +277,13 @@ aembar:setTitle("aero")
 -- 	update_aembar_async(aembar)
 -- end)
 aembar:setMenu(function()
-    update_aembar_async(aembar)
-    busyloop(1000)
-	update_aembar(aembar, ainfo)
-    return aembar_menu_table
+    local t = get_ainfo_async()
+    -- t:waitUntilExit() -- this is too slow...
+    busyloop(10000)
+	return update_aembar(aembar, ainfo)
 end)
+
+ainfo_timer = hs.timer.new(60, function() 
+    get_ainfo_async()
+end)
+ainfo_timer:start()
