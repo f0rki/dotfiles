@@ -109,6 +109,28 @@ caffeinate_if_docked_at_home()
 local docked_watcher = hs.battery.watcher.new(caffeinate_if_docked_at_home)
 docked_watcher:start()
 
+
+-- menubar to toggle caffeination
+caffeinate_bar = hs.menubar.new(true, "caffeinate_bar")
+coffee_icon = hs.image.imageFromPath("~/.hammerspoon/coffee.svg"):setSize({w=16,h=16})
+sleep_icon = hs.image.imageFromPath("~/.hammerspoon/sleep.svg"):setSize({w=16,h=16})
+caffeinate_bar:setIcon(sleep_icon)
+caffeinate_enabled = false
+function toggle_caffeinate()
+    caffeinate_enabled = not caffeinate_enabled
+	hs.caffeinate.set("systemIdle", caffeinate_enabled, false)
+    logger:i("caffeinate_enabled:", caffeinate_enabled)
+    if caffeinate_enabled then
+        caffeinate_bar:setIcon(coffee_icon)
+    else
+        caffeinate_bar:setIcon(sleep_icon)
+    end
+end
+
+caffeinate_bar:setClickCallback(function(kbdmodifies) -- If a menu has been attached to the menubar item, this callback will never be called
+    toggle_caffeinate()
+end)
+
 -- spotify controls
 hs.eventtap
 	.new({ hs.eventtap.event.types.systemDefined }, function(event)

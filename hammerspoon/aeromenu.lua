@@ -112,7 +112,7 @@ function aerospace_task(args, callback_fn, nojson)
 	if not nojson then
 		table.insert(args, "--json")
 	end
-	-- logger:d("starting aerospace task with args:", aerospace_bin, table.concat(args, " "))
+	logger:d("starting aerospace task with args:", aerospace_bin, table.concat(args, " "))
 	local task = hs.task.new(aerospace_bin, callback_fn, args)
 	if not task then
 		logger:e("failed to create task")
@@ -127,7 +127,6 @@ end
 -- globals :S
 aembar_menu_table = {}
 ainfo = {}
-
 
 -- this is slow af for some reason
 function get_aero_info()
@@ -164,47 +163,43 @@ end
 
 function get_ainfo_async()
 	-- local tasks = {}
-	local t = aerospace_task(
-		{
-			"list-windows",
-			"--all",
-			"--json",
-			"--format",
-			"%{app-name} %{window-title} %{window-id} %{app-pid} %{workspace} %{app-bundle-id} %{monitor-name} %{monitor-id}",
-		},
-		function(_exitCode, result, _stdErr)
-			local data = hs.json.decode(result)
-			if not data then
-				logger:e("failed to json decode aerospace result:", data)
-				return nil
-			end
-			ainfo = {}
-			-- get list of monitors
-			if not data then
-				return nil
-			end
-			for _, window in ipairs(data) do
-				local monitor_id = window["monitor-id"]
-				if ainfo[monitor_id] then
-					local workspace_id = tonumber(window["workspace"])
-					if ainfo[monitor_id].workspaces[workspace_id] then
-						table.insert(ainfo[monitor_id].workspaces[workspace_id], window)
-					else
-						ainfo[monitor_id].workspaces[workspace_id] = {
-							[1] = window,
-						}
-					end
+	local t = aerospace_task({
+		"list-windows",
+		"--all",
+		"--json",
+		"--format",
+		"%{app-name} %{window-title} %{window-id} %{app-pid} %{workspace} %{app-bundle-id} %{monitor-name} %{monitor-id}",
+	}, function(_exitCode, result, _stdErr)
+		local data = hs.json.decode(result)
+		if not data then
+			logger:e("failed to json decode aerospace result:", data)
+			return nil
+		end
+		ainfo = {}
+		-- get list of monitors
+		if not data then
+			return nil
+		end
+		for _, window in ipairs(data) do
+			local monitor_id = window["monitor-id"]
+			if ainfo[monitor_id] then
+				local workspace_id = tonumber(window["workspace"])
+				if ainfo[monitor_id].workspaces[workspace_id] then
+					table.insert(ainfo[monitor_id].workspaces[workspace_id], window)
 				else
-					ainfo[monitor_id] = {
-						name = window["monitor-name"],
-						workspaces = {},
+					ainfo[monitor_id].workspaces[workspace_id] = {
+						[1] = window,
 					}
 				end
+			else
+				ainfo[monitor_id] = {
+					name = window["monitor-name"],
+					workspaces = {},
+				}
 			end
-		end,
-		true
-	)
-    return t
+		end
+	end, true)
+	return t
 end
 
 function update_aembar(aembar, ainfo)
@@ -220,12 +215,14 @@ function update_aembar(aembar, ainfo)
 		})
 
 		for workspace_name, workspace_data in pairs(data.workspaces) do
-			-- TODO: use hs.styledtext to set to cursive
 			local workspace_title = string.format("workspace %s", workspace_name)
 			table.insert(menu_table, {
 				title = hs.styledtext.new(workspace_title, {
 					color = { blue = 1 },
 				}),
+				fn = function(modifies, item)
+					aerospace_task({ "workspace", tostring(workspace_name) }, function() end, true)
+				end,
 			})
 
 			for _, window_info in ipairs(workspace_data) do
@@ -264,26 +261,24 @@ function update_aembar(aembar, ainfo)
 	return menu_table
 end
 
-
-
-
 logger:i("hello from aeromenu")
 -- update_aembar_async(aembar)
 get_ainfo_async()
 aembar = hs.menubar.new(true, "hs_aero")
-aembar:setTitle("aero")
--- aembar:setIcon("~/.hammerpsoon/aerospace-icon.png")
+-- aembar:setTitle("aero")
+local aembar_icon = hs.image.imageFromPath("~/.hammerspoon/window.svg"):setSize({w=16,h=16})
+aembar:setIcon(aembar_icon)
 -- aembar:setClickCallback(function(kbdmodifies) -- If a menu has been attached to the menubar item, this callback will never be called
 -- 	update_aembar_async(aembar)
 -- end)
 aembar:setMenu(function()
-    local t = get_ainfo_async()
-    -- t:waitUntilExit() -- this is too slow...
-    busyloop(10000)
+	local t = get_ainfo_async()
+	-- t:waitUntilExit() -- this is too slow...
+	busyloop(10000)
 	return update_aembar(aembar, ainfo)
 end)
 
-ainfo_timer = hs.timer.new(60, function() 
-    get_ainfo_async()
+ainfo_timer = hs.timer.new(60, function()
+	get_ainfo_async()
 end)
 ainfo_timer:start()
