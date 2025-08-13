@@ -2,7 +2,6 @@
 
 set -ex
 
-git pull || true
 
 if [[ ! -L ~/.tmux.conf ]]; then
     ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
