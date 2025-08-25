@@ -61,9 +61,50 @@ hs.hotkey.bind("alt", "F2", function()
 		hs.application.launchOrFocus("Firefox")
 	else
 		hs.execute("/Applications/Firefox.app/Contents/MacOS/firefox --new-window")
+		busyloop(1000)
 		hs.application.launchOrFocus("Firefox")
 	end
 end)
+
+-- caffeination
+
+-- menubar to toggle caffeination
+caffeinate_bar = hs.menubar.new(true, "caffeinate_bar")
+coffee_icon = hs.image.imageFromPath("~/.hammerspoon/coffee.svg"):setSize({ w = 16, h = 16 })
+sleep_icon = hs.image.imageFromPath("~/.hammerspoon/sleep.svg"):setSize({ w = 16, h = 16 })
+caffeinate_enabled = hs.caffeinate.get("systemIdle")
+if caffeinate_enabled == nil then
+    logger:e("caffeinate API returned nil!")
+    -- we need a bool; so we set to false
+    caffeinate_enabled = false
+end
+if caffeinate_enabled then
+    caffeinate_bar:setIcon(coffee_icon)
+else
+    caffeinate_bar:setIcon(sleep_icon)
+end
+
+
+function set_caffeinate_to(val)
+    caffeinate_enabled = val
+	hs.caffeinate.set("systemIdle", caffeinate_enabled, false)
+	logger:i("caffeinate_enabled:", caffeinate_enabled)
+	if caffeinate_enabled then
+		caffeinate_bar:setIcon(coffee_icon)
+	else
+		caffeinate_bar:setIcon(sleep_icon)
+	end
+end
+
+function toggle_caffeinate()
+    set_caffeinate_to(not caffeinate_enabled)
+end
+
+caffeinate_bar:setClickCallback(
+	function(kbdmodifies) -- If a menu has been attached to the menubar item, this callback will never be called
+		toggle_caffeinate()
+	end
+)
 
 function caffeinate_if_docked_at_home()
 	local am_i_docked = false -- find out if docked at home office
@@ -74,13 +115,16 @@ function caffeinate_if_docked_at_home()
 				am_i_docked = true
 			end
 		end
+
+        -- TODO: check if docked at office?
 	end
 
 	if am_i_docked then
 		logger:i("detected docked")
 
 		-- prevent sleep on systemIdle if docked at home office
-		hs.caffeinate.set("systemIdle", true, false)
+		-- hs.caffeinate.set("systemIdle", true, false)
+        set_caffeinate_to(true)
 
 		-- disconnect from wifi if we are docked and have ethernet available
 		if hs.wifi.currentNetwork() == "Kaspresknoedl-5" or hs.wifi.currentNetwork() == "Kaspresknoedl-5" then
@@ -89,7 +133,8 @@ function caffeinate_if_docked_at_home()
 		end
 	else
 		-- else allow it
-		hs.caffeinate.set("systemIdle", false, false)
+		-- hs.caffeinate.set("systemIdle", false, false)
+        set_caffeinate_to(false)
 
 		-- https://github.com/Hammerspoon/hammerspoon/issues/1214
 		-- bit of a hack with applescript...
@@ -109,27 +154,6 @@ caffeinate_if_docked_at_home()
 local docked_watcher = hs.battery.watcher.new(caffeinate_if_docked_at_home)
 docked_watcher:start()
 
-
--- menubar to toggle caffeination
-caffeinate_bar = hs.menubar.new(true, "caffeinate_bar")
-coffee_icon = hs.image.imageFromPath("~/.hammerspoon/coffee.svg"):setSize({w=16,h=16})
-sleep_icon = hs.image.imageFromPath("~/.hammerspoon/sleep.svg"):setSize({w=16,h=16})
-caffeinate_bar:setIcon(sleep_icon)
-caffeinate_enabled = false
-function toggle_caffeinate()
-    caffeinate_enabled = not caffeinate_enabled
-	hs.caffeinate.set("systemIdle", caffeinate_enabled, false)
-    logger:i("caffeinate_enabled:", caffeinate_enabled)
-    if caffeinate_enabled then
-        caffeinate_bar:setIcon(coffee_icon)
-    else
-        caffeinate_bar:setIcon(sleep_icon)
-    end
-end
-
-caffeinate_bar:setClickCallback(function(kbdmodifies) -- If a menu has been attached to the menubar item, this callback will never be called
-    toggle_caffeinate()
-end)
 
 -- spotify controls
 hs.eventtap
