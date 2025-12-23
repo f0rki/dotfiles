@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-set -ex
-
+set -eu -o pipefail
 
 if [[ ! -L ~/.tmux.conf ]]; then
+    echo "linking tmux"
     ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
 fi
 if [[ ! -L ~/.gitconfig ]]; then
+    echo "linking gitconfig"
     ln -s "$PWD/gitconfig" ~/.gitconfig
 fi
 
@@ -14,8 +15,11 @@ if [[ ! -d vim ]]; then
     rm -rf vim || true
     git clone https://github.com/f0rki/dotvim vim
 else
-    pushd vim; git pull; popd
+    pushd vim
+    git pull
+    popd
 fi
+
 if [[ ! -L ~/.vim ]]; then
     ln -s "$(pwd)/vim" ~/.vim
 fi
@@ -26,9 +30,8 @@ fi
 
 if command -v nvim >/dev/null 2>&1; then
     pushd ~/.config/nvim
-    ./install-plug.sh
+    ./update-plugins.sh || true
     popd
-    nvim --headless -c 'PlugInstall --sync' -c 'qa'
-    nvim --headless -c 'UpdateRemotePlugins' -c 'qa'
-    nvim --headless -c 'TSInstallSync! rust c cpp python lua bash' -c 'qa'
 fi
+
+echo "finished"
