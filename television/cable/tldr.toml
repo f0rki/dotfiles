@@ -7,15 +7,16 @@ requirements = ["tldr"]
 command = "tldr --list"
 
 [preview]
-command = "tldr '{}'"
+command = "tldr '{0}'"
 
 [ui]
 preview_panel = { size = 60 }
-
-[keybindings]
-enter = "actions:open"
 
 [actions.open]
 description = "Open TLDR page in pager"
 command = "tldr '{}'"
 mode = "fork"
+command = "tldr '{0}'"
+
+[keybindings]
+enter = "actions:open"
