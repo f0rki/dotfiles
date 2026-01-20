@@ -131,13 +131,15 @@
     file-style = bold yellow ul
     file-decoration-style = none
 
-# configure difftastic as difftool
+# configure difftastic as difftool; usually I prefer delta, but difftastic is
+# also nice sometimes
 [diff]
-        tool = difftastic
+	tool = difftastic
 [difftool]
-        prompt = false
+    prompt = false
 [difftool "difftastic"]
     cmd = difft "$LOCAL" "$REMOTE"
+
 # Use a pager for large output, just like other git commands.
 [pager]
         difftool = true
@@ -147,6 +149,13 @@
 
 [mergetool "meld"]
     useAutoMerge = auto
+
+[mergetool "nvim"]
+	cmd = "nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
+
+[merge]
+    #tool = "meld"
+    tool = "nvim"
 
 [filter "lfs"]
 	process = git-lfs filter-process
