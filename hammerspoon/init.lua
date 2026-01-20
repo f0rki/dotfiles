@@ -45,26 +45,26 @@ end
 
 -- app launching
 -- alacritty = "/opt/homebrew/alacritty"
-hs.hotkey.bind("alt", "F1", function()
-	-- check if alacritty is running
-	if hs.application.get("alacritty") == nil then
-		hs.application.launchOrFocus("alacritty")
-	else
-		-- if alacritty is running use the internal mechanism to create a new window
-		hs.execute("/opt/homebrew/bin/alacritty msg create-window")
-		busyloop(1000)
-		hs.application.launchOrFocus("alacritty")
-	end
-end)
-hs.hotkey.bind("alt", "F2", function()
-	if hs.application.get("Firefox") == nil then
-		hs.application.launchOrFocus("Firefox")
-	else
-		hs.execute("/Applications/Firefox.app/Contents/MacOS/firefox --new-window")
-		busyloop(1000)
-		hs.application.launchOrFocus("Firefox")
-	end
-end)
+-- hs.hotkey.bind("alt", "F1", function()
+-- 	-- check if alacritty is running
+-- 	if hs.application.get("alacritty") == nil then
+-- 		hs.application.launchOrFocus("alacritty")
+-- 	else
+-- 		-- if alacritty is running use the internal mechanism to create a new window
+-- 		hs.execute("/opt/homebrew/bin/alacritty msg create-window")
+-- 		-- busyloop(1000)
+-- 		-- hs.application.launchOrFocus("alacritty")
+-- 	end
+-- end)
+-- hs.hotkey.bind("alt", "F2", function()
+-- 	if hs.application.get("Firefox") == nil then
+-- 		hs.application.launchOrFocus("Firefox")
+-- 	else
+-- 		hs.execute("/Applications/Firefox.app/Contents/MacOS/firefox --new-window")
+-- 		-- busyloop(1000)
+-- 		-- hs.application.launchOrFocus("Firefox")
+-- 	end
+-- end)
 
 -- caffeination
 
@@ -74,19 +74,18 @@ coffee_icon = hs.image.imageFromPath("~/.hammerspoon/coffee.svg"):setSize({ w = 
 sleep_icon = hs.image.imageFromPath("~/.hammerspoon/sleep.svg"):setSize({ w = 16, h = 16 })
 caffeinate_enabled = hs.caffeinate.get("systemIdle")
 if caffeinate_enabled == nil then
-    logger:e("caffeinate API returned nil!")
-    -- we need a bool; so we set to false
-    caffeinate_enabled = false
+	logger:e("caffeinate API returned nil!")
+	-- we need a bool; so we set to false
+	caffeinate_enabled = false
 end
 if caffeinate_enabled then
-    caffeinate_bar:setIcon(coffee_icon)
+	caffeinate_bar:setIcon(coffee_icon)
 else
-    caffeinate_bar:setIcon(sleep_icon)
+	caffeinate_bar:setIcon(sleep_icon)
 end
 
-
 function set_caffeinate_to(val)
-    caffeinate_enabled = val
+	caffeinate_enabled = val
 	hs.caffeinate.set("systemIdle", caffeinate_enabled, false)
 	logger:i("caffeinate_enabled:", caffeinate_enabled)
 	if caffeinate_enabled then
@@ -97,7 +96,7 @@ function set_caffeinate_to(val)
 end
 
 function toggle_caffeinate()
-    set_caffeinate_to(not caffeinate_enabled)
+	set_caffeinate_to(not caffeinate_enabled)
 end
 
 caffeinate_bar:setClickCallback(
@@ -116,7 +115,7 @@ function caffeinate_if_docked_at_home()
 			end
 		end
 
-        -- TODO: check if docked at office?
+		-- TODO: check if docked at office?
 	end
 
 	if am_i_docked then
@@ -124,7 +123,7 @@ function caffeinate_if_docked_at_home()
 
 		-- prevent sleep on systemIdle if docked at home office
 		-- hs.caffeinate.set("systemIdle", true, false)
-        set_caffeinate_to(true)
+		set_caffeinate_to(true)
 
 		-- disconnect from wifi if we are docked and have ethernet available
 		if hs.wifi.currentNetwork() == "Kaspresknoedl-5" or hs.wifi.currentNetwork() == "Kaspresknoedl-5" then
@@ -134,7 +133,7 @@ function caffeinate_if_docked_at_home()
 	else
 		-- else allow it
 		-- hs.caffeinate.set("systemIdle", false, false)
-        set_caffeinate_to(false)
+		set_caffeinate_to(false)
 
 		-- https://github.com/Hammerspoon/hammerspoon/issues/1214
 		-- bit of a hack with applescript...
@@ -154,6 +153,12 @@ caffeinate_if_docked_at_home()
 local docked_watcher = hs.battery.watcher.new(caffeinate_if_docked_at_home)
 docked_watcher:start()
 
+local caffeinate_watcher = hs.caffeinate.watcher.new(function(event)
+	if event == hs.caffeinate.watcher.systemDidWake then
+		caffeinate_if_docked_at_home()
+	end
+end)
+caffeinate_watcher:start()
 
 -- spotify controls
 hs.eventtap
@@ -176,6 +181,5 @@ hs.eventtap
 		end
 	end)
 	:start()
-
 
 require("aeromenu")
