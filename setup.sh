@@ -13,6 +13,12 @@ fi
 if [[ ! -L ~/.dprint.json ]]; then
     ln -s "$PWD/dprint.json" ~/.dprint.json
 fi
+if [[ ! -L ~/.config/television ]]; then
+    ln -s "$PWD/television" ~/.config/television
+fi
+if [[ ! -L ~/.config/alacritty ]]; then
+    ln -s "$PWD/alacritty" ~/.config/alacritty
+fi
 
 if [[ ! -d vim ]]; then
     rm -rf vim || true
