@@ -1,0 +1,21 @@
+[metadata]
+name = "cheat"
+description = "Browse and preview cheat.sh pages"
+requirements = ["curl"]
+
+[source]
+command = "curl -s cht.sh/:list"
+
+[preview]
+command = "curl -s 'https://cht.sh/{}'"
+
+[ui]
+preview_panel = { size = 60 }
+
+[keybindings]
+enter = "actions:open"
+
+[actions.open]
+description = "Open cheat.sh page"
+command = "curl -s 'https://cht.sh/{}'"
+mode = "execute"
