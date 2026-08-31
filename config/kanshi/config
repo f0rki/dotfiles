@@ -1,67 +1,18 @@
-# safeguard:
-profile safeguard-home {
-    output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 1920,0
-    output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,500
-
-    exec ~/.config/sway/scripts/monitor-is.sh right
-}
-
-profile safeguard-home-2 {
-    output "Samsung Electric Company C34H89x H4ZN101108" mode 3440x1440 position 1920,0
-    output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,500
-    output "Samsung Electric Company C34H89x H1AK500000" disable
-
-    exec ~/.config/sway/scripts/monitor-is.sh right
-}
-
-profile safeguard-work-new {
-    output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 position 0,0
-    output "Fujitsu Siemens Computers GmbH B24W-7 LED YVCH106775" mode 1920x1200 transform 90 position 2560,-200
-    output "Chimei Innolux Corporation 0x14C9 0x00000000" disable
-
-    exec ~/.config/sway/scripts/monitor-is.sh right
-    # automatically switch to wired LAN
-    # exec nmcli con down eduroam
-    # exec nmcli con up dhcp-work
-}
-
-profile safeguard-work-old {
-    output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ200467" mode 2560x1440 position 1440,530
-    #output DP-4 "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 transform 270 position 0,0
-    output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ207092" mode 2560x1440 position 0,0 transform 270
-    output "Chimei Innolux Corporation 0x14C9 0x00000000" disable
-
-    exec ~/.config/sway/scripts/monitor-is.sh right
-    # automatically switch to wired LAN
-    exec nmcli con down eduroam
-    exec nmcli con up dhcp-work
-}
-
-profile home-above {
-    output "Iiyama North America PL2783Q 1151265101777" mode 2560x1440 position 0,0
-    output "chimei innolux corporation 0x14c9 0x00000000" mode 1920x1080 position 320,1440
-    
-    exec ~/.config/sway/scripts/monitor-is.sh up
-}
-# prefer left profile for the moment
-profile home-left {
-    output "Iiyama North America PL2783Q 1151265101777" mode 2560x1440 position 1920,0
-    output "Chimei Innolux Corporation 0x14C9 0x00000000" mode 1920x1080 position 0,1100
-    
-    exec ~/.config/sway/scripts/monitor-is.sh left
-}
-
 # voidspace in docking station with hdmi
 profile voidspace-home-hdmi {
-    output "Samsung Electric Company C34H89x H1AK500000" mode 3440x1440 position 1920,0
-    output eDP-1 mode 1920x1080 position 0,500
+    # output "Samsung Electric Company C34H89x H1AK500000" mode 3440x1440 position 1920,0
+    # output eDP-1 mode 1920x1080 position 0,500
+    output "Samsung Electric Company C34H89x H1AK500000" mode 3440x1440 position 2256,0
+    # output eDP-1 mode 1920x1080 position 0,500
+    output eDP-1 mode 2256x1504 position 0,500
 
-    exec ~/.config/sway/scripts/monitor-is.sh right
+    # exec ~/.config/sway/scripts/monitor-is.sh right
 }
 
-# notebooks (single display)
+# voidspace notebook single display
 profile internal-single {
-    output eDP-1 mode 1920x1080
+    # output eDP-1 mode 1920x1080
+    output eDP-1 mode 2256x1504
 }
 
 # tohaindustry (single display)
