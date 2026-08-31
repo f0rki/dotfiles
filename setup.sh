@@ -16,6 +16,9 @@ fi
 if [[ ! -L ~/.config/alacritty ]]; then
     ln -s "$PWD/alacritty" ~/.config/alacritty
 fi
+if [[ ! -L ~/.config/fish ]]; then
+    ln -s "$PWD/fish" ~/.config/fish
+fi
 if [[ ! -L ~/.dprint.json ]]; then
     ln -s "$PWD/dprint.json" ~/.dprint.json
 fi
