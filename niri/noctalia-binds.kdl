@@ -1,0 +1,5 @@
+binds {
+    alt+e hotkey-overlay-title="Noctalia Launcher" {
+        spawn "noctalia" "msg" "panel-open" "launcher";
+    }
+}
